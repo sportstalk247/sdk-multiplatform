@@ -3,7 +3,6 @@ buildscript {
         google()
         mavenCentral()
     }
-
 }
 
 // https://youtrack.jetbrains.com/issue/KTIJ-19369
