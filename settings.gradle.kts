@@ -5,9 +5,6 @@ pluginManagement {
         mavenCentral()
         maven {
             setUrl("https://jitpack.io")
-            credentials {
-                username = "jp_34fduc0vcrkfd7rtgblm22bvru"
-            }
         }
     }
 }
