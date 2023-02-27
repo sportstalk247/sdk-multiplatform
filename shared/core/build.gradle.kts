@@ -14,6 +14,17 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    sourceSets {
+        all {
+            languageSettings.apply {
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlinx.coroutines.FlowPreview")
+            }
+        }
+    }
     
     sourceSets {
         val commonMain by getting {
@@ -33,6 +44,8 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(libs.bundles.ktor.common)
+                implementation(libs.coroutines.test)
+                implementation(libs.kotlin.test)
             }
         }
         val androidMain by getting {
