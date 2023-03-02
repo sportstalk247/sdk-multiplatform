@@ -1,11 +1,7 @@
 package com.sportstalk.sdk.core
 
-import com.sportstalk.sdk.core.impl.ChatModerationRestApiServiceImpl
-import com.sportstalk.sdk.core.impl.ChatRestApiServiceImpl
-import com.sportstalk.sdk.core.impl.UserRestApiServiceImpl
-import com.sportstalk.sdk.core.service.ChatModerationService
-import com.sportstalk.sdk.core.service.ChatService
-import com.sportstalk.sdk.core.service.UserService
+import com.sportstalk.sdk.core.impl.*
+import com.sportstalk.sdk.core.service.*
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.SportsTalkException
 import io.ktor.client.*
@@ -137,6 +133,44 @@ internal object ServiceFactory {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
                 ChatModerationRestApiServiceImpl(
+                    config = config,
+                    client = ktorClient,
+                ).also {
+                    instances[config] = it
+                }
+            }
+
+    }
+
+    object Comment {
+        private val instances: HashMap<ClientConfig, CommentService> = hashMapOf()
+
+        internal fun get(config: ClientConfig): CommentService =
+            if(instances.containsKey(config)) {
+                instances[config]!!
+            } else {
+                val ktorClient = RestApi.getKtorClientInstance(config)
+                // REST API Implementation
+                CommentRestApiServiceImpl(
+                    config = config,
+                    client = ktorClient,
+                ).also {
+                    instances[config] = it
+                }
+            }
+
+    }
+
+    object CommentModeration {
+        private val instances: HashMap<ClientConfig, CommentModerationService> = hashMapOf()
+
+        internal fun get(config: ClientConfig): CommentModerationService =
+            if(instances.containsKey(config)) {
+                instances[config]!!
+            } else {
+                val ktorClient = RestApi.getKtorClientInstance(config)
+                // REST API Implementation
+                CommentModerationRestApiServiceImpl(
                     config = config,
                     client = ktorClient,
                 ).also {
