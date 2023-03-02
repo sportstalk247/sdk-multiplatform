@@ -1,6 +1,10 @@
 package com.sportstalk.sdk.core
 
+import com.sportstalk.sdk.core.impl.ChatModerationRestApiServiceImpl
+import com.sportstalk.sdk.core.impl.ChatRestApiServiceImpl
 import com.sportstalk.sdk.core.impl.UserRestApiServiceImpl
+import com.sportstalk.sdk.core.service.ChatModerationService
+import com.sportstalk.sdk.core.service.ChatService
 import com.sportstalk.sdk.core.service.UserService
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.SportsTalkException
@@ -95,6 +99,44 @@ internal object ServiceFactory {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
                 UserRestApiServiceImpl(
+                    config = config,
+                    client = ktorClient,
+                ).also {
+                    instances[config] = it
+                }
+            }
+
+    }
+
+    object Chat {
+        private val instances: HashMap<ClientConfig, ChatService> = hashMapOf()
+
+        internal fun get(config: ClientConfig): ChatService =
+            if(instances.containsKey(config)) {
+                instances[config]!!
+            } else {
+                val ktorClient = RestApi.getKtorClientInstance(config)
+                // REST API Implementation
+                ChatRestApiServiceImpl(
+                    config = config,
+                    client = ktorClient,
+                ).also {
+                    instances[config] = it
+                }
+            }
+
+    }
+
+    object ChatModeration {
+        private val instances: HashMap<ClientConfig, ChatModerationService> = hashMapOf()
+
+        internal fun get(config: ClientConfig): ChatModerationService =
+            if(instances.containsKey(config)) {
+                instances[config]!!
+            } else {
+                val ktorClient = RestApi.getKtorClientInstance(config)
+                // REST API Implementation
+                ChatModerationRestApiServiceImpl(
                     config = config,
                     client = ktorClient,
                 ).also {
