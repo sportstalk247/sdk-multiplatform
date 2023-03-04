@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class Sportstalk247KitSportsTalk247, Sportstalk247KitClientConfig, Sportstalk247KitJWTProvider, Sportstalk247KitWebRegexConstants, Sportstalk247KitChatEvent, Sportstalk247KitListMessagesNeedingModerationResponse, Sportstalk247KitChatRoom, Sportstalk247KitBounceUserRequest, Sportstalk247KitBounceUserResponse, Sportstalk247KitCreateChatRoomRequest, Sportstalk247KitDeleteChatRoomResponse, Sportstalk247KitExecuteChatCommandRequest, Sportstalk247KitExecuteChatCommandResponse, Sportstalk247KitDeleteEventResponse, Sportstalk247KitRoomDetailEntityType, Sportstalk247KitGetRoomDetailsExtendedBatchResponse, Sportstalk247KitGetUpdatesResponse, Sportstalk247KitJoinChatRoomResponse, Sportstalk247KitJoinChatRoomRequest, Sportstalk247KitListEventsByTimestamp, Sportstalk247KitListEvents, Sportstalk247KitListMessagesByUser, Sportstalk247KitListChatRoomParticipantsResponse, Sportstalk247KitListRoomsResponse, Sportstalk247KitListUserSubscribedRoomsResponse, Sportstalk247KitReactToAMessageRequest, Sportstalk247KitReportMessageRequest, Sportstalk247KitSearchEventHistoryRequest, Sportstalk247KitSearchEventHistoryResponse, Sportstalk247KitSendQuotedReplyRequest, Sportstalk247KitSendThreadedReplyRequest, Sportstalk247KitChatSubscription, Sportstalk247KitUpdateChatMessageRequest, Sportstalk247KitUpdateChatRoomRequest, Sportstalk247KitUser, Sportstalk247KitChatRestApiServiceImplCompanion, Sportstalk247KitApproveMessageRequest, Sportstalk247KitComment, Sportstalk247KitCommentFilterModerationState, Sportstalk247KitListComments, Sportstalk247KitBatchGetConversationEntity, Sportstalk247KitBatchGetConversationDetailsResponse, Sportstalk247KitCreateCommentRequest, Sportstalk247KitCreateOrUpdateConversationRequest, Sportstalk247KitConversation, Sportstalk247KitDeleteConversationResponse, Sportstalk247KitDeleteCommentResponse, Sportstalk247KitDirectionType, Sportstalk247KitSortType, Sportstalk247KitListConversations, Sportstalk247KitListRepliesBatchResponse, Sportstalk247KitReactToCommentRequest, Sportstalk247KitReactToConversationTopicRequest, Sportstalk247KitReportCommentRequest, Sportstalk247KitUpdateCommentRequest, Sportstalk247KitVoteOnCommentRequest, Sportstalk247KitCreateUpdateUserRequest, Sportstalk247KitDeleteUserResponse, Sportstalk247KitUserNotification, Sportstalk247KitGloballyPurgeUserContentResponse, Sportstalk247KitListUserNotificationsResponse, Sportstalk247KitListUsersResponse, Sportstalk247KitApiResponseCompanion, Sportstalk247KitApiResponse<T>, Sportstalk247KitKotlinArray<T>, Sportstalk247KitKind, Sportstalk247KitKotlinThrowable, Sportstalk247KitKotlinException, Sportstalk247KitKotlinx_serialization_jsonJsonElement, Sportstalk247KitSportsTalkExceptionCompanion, Sportstalk247KitSportsTalkException, Sportstalk247KitApproveMessageRequestCompanion, Sportstalk247KitBatchGetConversationDetailsResponseCompanion, Sportstalk247KitKotlinEnumCompanion, Sportstalk247KitKotlinEnum<E>, Sportstalk247KitBatchGetConversationEntityCompanion, Sportstalk247KitReaction, Sportstalk247KitVoteDetail, Sportstalk247KitReport, Sportstalk247KitCommentCompanion, Sportstalk247KitCommentFilterModerationStateCompanion, Sportstalk247KitCommentType, Sportstalk247KitConversationCompanion, Sportstalk247KitCreateCommentRequestCompanion, Sportstalk247KitCreateOrUpdateConversationRequestCompanion, Sportstalk247KitDeleteCommentResponseCompanion, Sportstalk247KitDeleteConversationResponseCompanion, Sportstalk247KitDirectionTypeCompanion, Sportstalk247KitListCommentsCompanion, Sportstalk247KitListConversationsCompanion, Sportstalk247KitListRepliesBatchResponseCommentReplyGroup, Sportstalk247KitListRepliesBatchResponseCompanion, Sportstalk247KitListRepliesBatchResponseCommentReplyGroupCompanion, Sportstalk247KitReactToCommentRequestCompanion, Sportstalk247KitReactToConversationTopicRequestCompanion, Sportstalk247KitReportCommentRequestCompanion, Sportstalk247KitSortTypeCompanion, Sportstalk247KitUpdateCommentRequestCompanion, Sportstalk247KitVoteType, Sportstalk247KitVoteDetailCompanion, Sportstalk247KitVoteOnCommentRequestCompanion, Sportstalk247KitVoteTypeCompanion, Sportstalk247KitReactionCompanion, Sportstalk247KitReactionType, Sportstalk247KitBanUserRequestCompanion, Sportstalk247KitBanUserRequest, Sportstalk247KitCreateUpdateUserRequestCompanion, Sportstalk247KitDeleteUserResponseCompanion, Sportstalk247KitGloballyPurgeUserContentRequestCompanion, Sportstalk247KitGloballyPurgeUserContentRequest, Sportstalk247KitGloballyPurgeUserContentResponseCompanion, Sportstalk247KitListUserNotificationsResponseCompanion, Sportstalk247KitListUsersResponseCompanion, Sportstalk247KitMuteUserRequestCompanion, Sportstalk247KitMuteUserRequest, Sportstalk247KitReportUserRequestCompanion, Sportstalk247KitReportUserRequest, Sportstalk247KitSearchUsersRequestCompanion, Sportstalk247KitSearchUsersRequest, Sportstalk247KitSetShadowBanStatusRequestCompanion, Sportstalk247KitSetShadowBanStatusRequest, Sportstalk247KitUserReport, Sportstalk247KitUserCompanion, Sportstalk247KitUserRole, Sportstalk247KitUserNotificationCompanion, Sportstalk247KitUserNotificationType, Sportstalk247KitUserReportCompanion, Sportstalk247KitBounceUserRequestCompanion, Sportstalk247KitBounceUserResponseCompanion, Sportstalk247KitChatEventCompanion, Sportstalk247KitReportedUser, Sportstalk247KitChatRoomCompanion, Sportstalk247KitChatRoomParticipantCompanion, Sportstalk247KitChatRoomParticipant, Sportstalk247KitChatSubscriptionCompanion, Sportstalk247KitCreateChatRoomRequestCompanion, Sportstalk247KitDeleteChatRoomResponseCompanion, Sportstalk247KitDeleteEventResponseCompanion, Sportstalk247KitEventType, Sportstalk247KitExecuteChatCommandRequestCompanion, Sportstalk247KitExecuteChatCommandResponseCompanion, Sportstalk247KitExitChatRoomRequestCompanion, Sportstalk247KitExitChatRoomRequest, Sportstalk247KitGetRoomDetailsExtendedBatchResponseDetail, Sportstalk247KitGetRoomDetailsExtendedBatchResponseCompanion, Sportstalk247KitGetRoomDetailsExtendedBatchResponseDetailCompanion, Sportstalk247KitGetUpdatesResponseCompanion, Sportstalk247KitJoinChatRoomRequestCompanion, Sportstalk247KitJoinChatRoomResponseCompanion, Sportstalk247KitListChatRoomParticipantsResponseCompanion, Sportstalk247KitListEventsCompanion, Sportstalk247KitListEventsByTimestampCompanion, Sportstalk247KitListMessagesByUserCompanion, Sportstalk247KitListRoomsResponseCompanion, Sportstalk247KitListUserSubscribedRoomsResponseData, Sportstalk247KitListUserSubscribedRoomsResponseCompanion, Sportstalk247KitListUserSubscribedRoomsResponseRoomStatus, Sportstalk247KitListUserSubscribedRoomsResponseDataCompanion, Sportstalk247KitListUserSubscribedRoomsResponseRoomStatusCompanion, Sportstalk247KitModerationType, Sportstalk247KitMuteUserInRoomRequestCompanion, Sportstalk247KitMuteUserInRoomRequest, Sportstalk247KitReactToAMessageRequestCompanion, Sportstalk247KitReportMessageRequestCompanion, Sportstalk247KitReportUserInRoomRequestCompanion, Sportstalk247KitReportUserInRoomRequest, Sportstalk247KitReportedUserCompanion, Sportstalk247KitSearchEventHistoryRequestDirection, Sportstalk247KitSearchEventHistoryRequestCompanion, Sportstalk247KitSearchEventHistoryRequestDirectionCompanion, Sportstalk247KitSearchEventHistoryResponseCompanion, Sportstalk247KitSendQuotedReplyRequestCompanion, Sportstalk247KitSendThreadedReplyRequestCompanion, Sportstalk247KitShadowBanUserInRoomRequestCompanion, Sportstalk247KitShadowBanUserInRoomRequest, Sportstalk247KitUpdateChatMessageRequestCompanion, Sportstalk247KitUpdateChatRoomRequestCompanion, Sportstalk247KitApproveMessageRequest_Companion, Sportstalk247KitApproveMessageRequest_, Sportstalk247KitListMessagesNeedingModerationResponseCompanion, Sportstalk247KitReportCompanion, Sportstalk247KitReportType, Sportstalk247KitKotlinRuntimeException, Sportstalk247KitKotlinIllegalStateException, Sportstalk247KitKotlinx_serialization_jsonJsonElementCompanion, Sportstalk247KitKotlinx_serialization_coreSerializersModule, Sportstalk247KitKotlinx_serialization_coreSerialKind, Sportstalk247KitKotlinNothing;
+@class Sportstalk247KitSportsTalk247, Sportstalk247KitClientConfig, Sportstalk247KitJWTProvider, Sportstalk247KitWebRegexConstants, Sportstalk247KitChatRoom, Sportstalk247KitBounceUserRequest, Sportstalk247KitBounceUserResponse, Sportstalk247KitCreateChatRoomRequest, Sportstalk247KitDeleteChatRoomResponse, Sportstalk247KitExecuteChatCommandRequest, Sportstalk247KitExecuteChatCommandResponse, Sportstalk247KitDeleteEventResponse, Sportstalk247KitChatEvent, Sportstalk247KitRoomDetailEntityType, Sportstalk247KitGetRoomDetailsExtendedBatchResponse, Sportstalk247KitGetUpdatesResponse, Sportstalk247KitJoinChatRoomResponse, Sportstalk247KitJoinChatRoomRequest, Sportstalk247KitListEventsByTimestamp, Sportstalk247KitListEvents, Sportstalk247KitListMessagesByUser, Sportstalk247KitListChatRoomParticipantsResponse, Sportstalk247KitListRoomsResponse, Sportstalk247KitListUserSubscribedRoomsResponse, Sportstalk247KitReactToAMessageRequest, Sportstalk247KitReportMessageRequest, Sportstalk247KitSearchEventHistoryRequest, Sportstalk247KitSearchEventHistoryResponse, Sportstalk247KitSendQuotedReplyRequest, Sportstalk247KitSendThreadedReplyRequest, Sportstalk247KitChatSubscription, Sportstalk247KitUpdateChatMessageRequest, Sportstalk247KitUpdateChatRoomRequest, Sportstalk247KitUser, Sportstalk247KitListMessagesNeedingModerationResponse, Sportstalk247KitChatClientImplCompanion, Sportstalk247KitBatchGetConversationEntity, Sportstalk247KitBatchGetConversationDetailsResponse, Sportstalk247KitCreateCommentRequest, Sportstalk247KitComment, Sportstalk247KitCreateOrUpdateConversationRequest, Sportstalk247KitConversation, Sportstalk247KitDeleteConversationResponse, Sportstalk247KitDeleteCommentResponse, Sportstalk247KitDirectionType, Sportstalk247KitSortType, Sportstalk247KitListComments, Sportstalk247KitListConversations, Sportstalk247KitListRepliesBatchResponse, Sportstalk247KitReactToCommentRequest, Sportstalk247KitReactToConversationTopicRequest, Sportstalk247KitReportCommentRequest, Sportstalk247KitUpdateCommentRequest, Sportstalk247KitVoteOnCommentRequest, Sportstalk247KitApproveMessageRequest, Sportstalk247KitCommentFilterModerationState, Sportstalk247KitCreateUpdateUserRequest, Sportstalk247KitDeleteUserResponse, Sportstalk247KitUserNotification, Sportstalk247KitGloballyPurgeUserContentResponse, Sportstalk247KitListUserNotificationsResponse, Sportstalk247KitListUsersResponse, Sportstalk247KitApiResponseCompanion, Sportstalk247KitApiResponse<T>, Sportstalk247KitKotlinArray<T>, Sportstalk247KitKind, Sportstalk247KitKotlinThrowable, Sportstalk247KitKotlinException, Sportstalk247KitKotlinx_serialization_jsonJsonElement, Sportstalk247KitSportsTalkExceptionCompanion, Sportstalk247KitSportsTalkException, Sportstalk247KitApproveMessageRequestCompanion, Sportstalk247KitBatchGetConversationDetailsResponseCompanion, Sportstalk247KitKotlinEnumCompanion, Sportstalk247KitKotlinEnum<E>, Sportstalk247KitBatchGetConversationEntityCompanion, Sportstalk247KitReaction, Sportstalk247KitVoteDetail, Sportstalk247KitReport, Sportstalk247KitCommentCompanion, Sportstalk247KitCommentFilterModerationStateCompanion, Sportstalk247KitCommentType, Sportstalk247KitConversationCompanion, Sportstalk247KitCreateCommentRequestCompanion, Sportstalk247KitCreateOrUpdateConversationRequestCompanion, Sportstalk247KitDeleteCommentResponseCompanion, Sportstalk247KitDeleteConversationResponseCompanion, Sportstalk247KitDirectionTypeCompanion, Sportstalk247KitListCommentsCompanion, Sportstalk247KitListConversationsCompanion, Sportstalk247KitListRepliesBatchResponseCommentReplyGroup, Sportstalk247KitListRepliesBatchResponseCompanion, Sportstalk247KitListRepliesBatchResponseCommentReplyGroupCompanion, Sportstalk247KitReactToCommentRequestCompanion, Sportstalk247KitReactToConversationTopicRequestCompanion, Sportstalk247KitReportCommentRequestCompanion, Sportstalk247KitSortTypeCompanion, Sportstalk247KitUpdateCommentRequestCompanion, Sportstalk247KitVoteType, Sportstalk247KitVoteDetailCompanion, Sportstalk247KitVoteOnCommentRequestCompanion, Sportstalk247KitVoteTypeCompanion, Sportstalk247KitReactionCompanion, Sportstalk247KitReactionType, Sportstalk247KitBanUserRequestCompanion, Sportstalk247KitBanUserRequest, Sportstalk247KitCreateUpdateUserRequestCompanion, Sportstalk247KitDeleteUserResponseCompanion, Sportstalk247KitGloballyPurgeUserContentRequestCompanion, Sportstalk247KitGloballyPurgeUserContentRequest, Sportstalk247KitGloballyPurgeUserContentResponseCompanion, Sportstalk247KitListUserNotificationsResponseCompanion, Sportstalk247KitListUsersResponseCompanion, Sportstalk247KitMuteUserRequestCompanion, Sportstalk247KitMuteUserRequest, Sportstalk247KitReportUserRequestCompanion, Sportstalk247KitReportUserRequest, Sportstalk247KitSearchUsersRequestCompanion, Sportstalk247KitSearchUsersRequest, Sportstalk247KitSetShadowBanStatusRequestCompanion, Sportstalk247KitSetShadowBanStatusRequest, Sportstalk247KitUserReport, Sportstalk247KitUserCompanion, Sportstalk247KitUserRole, Sportstalk247KitUserNotificationCompanion, Sportstalk247KitUserNotificationType, Sportstalk247KitUserReportCompanion, Sportstalk247KitBounceUserRequestCompanion, Sportstalk247KitBounceUserResponseCompanion, Sportstalk247KitChatEventCompanion, Sportstalk247KitReportedUser, Sportstalk247KitChatRoomCompanion, Sportstalk247KitChatRoomParticipantCompanion, Sportstalk247KitChatRoomParticipant, Sportstalk247KitChatSubscriptionCompanion, Sportstalk247KitCreateChatRoomRequestCompanion, Sportstalk247KitDeleteChatRoomResponseCompanion, Sportstalk247KitDeleteEventResponseCompanion, Sportstalk247KitEventType, Sportstalk247KitExecuteChatCommandRequestCompanion, Sportstalk247KitExecuteChatCommandResponseCompanion, Sportstalk247KitExitChatRoomRequestCompanion, Sportstalk247KitExitChatRoomRequest, Sportstalk247KitGetRoomDetailsExtendedBatchResponseDetail, Sportstalk247KitGetRoomDetailsExtendedBatchResponseCompanion, Sportstalk247KitGetRoomDetailsExtendedBatchResponseDetailCompanion, Sportstalk247KitGetUpdatesResponseCompanion, Sportstalk247KitJoinChatRoomRequestCompanion, Sportstalk247KitJoinChatRoomResponseCompanion, Sportstalk247KitListChatRoomParticipantsResponseCompanion, Sportstalk247KitListEventsCompanion, Sportstalk247KitListEventsByTimestampCompanion, Sportstalk247KitListMessagesByUserCompanion, Sportstalk247KitListRoomsResponseCompanion, Sportstalk247KitListUserSubscribedRoomsResponseData, Sportstalk247KitListUserSubscribedRoomsResponseCompanion, Sportstalk247KitListUserSubscribedRoomsResponseRoomStatus, Sportstalk247KitListUserSubscribedRoomsResponseDataCompanion, Sportstalk247KitListUserSubscribedRoomsResponseRoomStatusCompanion, Sportstalk247KitModerationType, Sportstalk247KitMuteUserInRoomRequestCompanion, Sportstalk247KitMuteUserInRoomRequest, Sportstalk247KitReactToAMessageRequestCompanion, Sportstalk247KitReportMessageRequestCompanion, Sportstalk247KitReportUserInRoomRequestCompanion, Sportstalk247KitReportUserInRoomRequest, Sportstalk247KitReportedUserCompanion, Sportstalk247KitSearchEventHistoryRequestDirection, Sportstalk247KitSearchEventHistoryRequestCompanion, Sportstalk247KitSearchEventHistoryRequestDirectionCompanion, Sportstalk247KitSearchEventHistoryResponseCompanion, Sportstalk247KitSendQuotedReplyRequestCompanion, Sportstalk247KitSendThreadedReplyRequestCompanion, Sportstalk247KitShadowBanUserInRoomRequestCompanion, Sportstalk247KitShadowBanUserInRoomRequest, Sportstalk247KitUpdateChatMessageRequestCompanion, Sportstalk247KitUpdateChatRoomRequestCompanion, Sportstalk247KitApproveMessageRequest_Companion, Sportstalk247KitApproveMessageRequest_, Sportstalk247KitListMessagesNeedingModerationResponseCompanion, Sportstalk247KitReportCompanion, Sportstalk247KitReportType, Sportstalk247KitKotlinRuntimeException, Sportstalk247KitKotlinIllegalStateException, Sportstalk247KitKotlinx_serialization_jsonJsonElementCompanion, Sportstalk247KitKotlinx_serialization_coreSerializersModule, Sportstalk247KitKotlinx_serialization_coreSerialKind, Sportstalk247KitKotlinNothing;
 
-@protocol Sportstalk247KitChatModerationService, Sportstalk247KitKotlinx_coroutines_coreFlow, Sportstalk247KitChatService, Sportstalk247KitChatClient, Sportstalk247KitCommentModerationService, Sportstalk247KitCommentService, Sportstalk247KitUserService, Sportstalk247KitKotlinSuspendFunction1, Sportstalk247KitKotlinx_serialization_coreKSerializer, Sportstalk247KitKotlinComparable, Sportstalk247KitCommonParcelable, Sportstalk247KitKotlinx_coroutines_coreFlowCollector, Sportstalk247KitKotlinFunction, Sportstalk247KitKotlinx_serialization_coreEncoder, Sportstalk247KitKotlinx_serialization_coreSerialDescriptor, Sportstalk247KitKotlinx_serialization_coreSerializationStrategy, Sportstalk247KitKotlinx_serialization_coreDecoder, Sportstalk247KitKotlinx_serialization_coreDeserializationStrategy, Sportstalk247KitKotlinIterator, Sportstalk247KitKotlinx_serialization_coreCompositeEncoder, Sportstalk247KitKotlinAnnotation, Sportstalk247KitKotlinx_serialization_coreCompositeDecoder, Sportstalk247KitKotlinx_serialization_coreSerializersModuleCollector, Sportstalk247KitKotlinKClass, Sportstalk247KitKotlinKDeclarationContainer, Sportstalk247KitKotlinKAnnotatedElement, Sportstalk247KitKotlinKClassifier;
+@protocol Sportstalk247KitChatClient, Sportstalk247KitCommentClient, Sportstalk247KitUserClient, Sportstalk247KitKotlinx_coroutines_coreFlow, Sportstalk247KitChatService, Sportstalk247KitChatModerationService, Sportstalk247KitCommentService, Sportstalk247KitCommentModerationService, Sportstalk247KitUserService, Sportstalk247KitKotlinSuspendFunction1, Sportstalk247KitKotlinx_serialization_coreKSerializer, Sportstalk247KitKotlinComparable, Sportstalk247KitCommonParcelable, Sportstalk247KitKotlinx_coroutines_coreFlowCollector, Sportstalk247KitKotlinFunction, Sportstalk247KitKotlinx_serialization_coreEncoder, Sportstalk247KitKotlinx_serialization_coreSerialDescriptor, Sportstalk247KitKotlinx_serialization_coreSerializationStrategy, Sportstalk247KitKotlinx_serialization_coreDecoder, Sportstalk247KitKotlinx_serialization_coreDeserializationStrategy, Sportstalk247KitKotlinIterator, Sportstalk247KitKotlinx_serialization_coreCompositeEncoder, Sportstalk247KitKotlinAnnotation, Sportstalk247KitKotlinx_serialization_coreCompositeDecoder, Sportstalk247KitKotlinx_serialization_coreSerializersModuleCollector, Sportstalk247KitKotlinKClass, Sportstalk247KitKotlinKDeclarationContainer, Sportstalk247KitKotlinKAnnotatedElement, Sportstalk247KitKotlinKClassifier;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -151,6 +151,9 @@ __attribute__((swift_name("SportsTalk247")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)sportsTalk247 __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) Sportstalk247KitSportsTalk247 *shared __attribute__((swift_name("shared")));
+- (id<Sportstalk247KitChatClient>)ChatClientConfig:(Sportstalk247KitClientConfig *)config __attribute__((swift_name("ChatClient(config:)")));
+- (id<Sportstalk247KitCommentClient>)CommentClientConfig:(Sportstalk247KitClientConfig *)config __attribute__((swift_name("CommentClient(config:)")));
+- (id<Sportstalk247KitUserClient>)UserClientConfig:(Sportstalk247KitClientConfig *)config __attribute__((swift_name("UserClient(config:)")));
 - (void)setJWTProviderConfig:(Sportstalk247KitClientConfig *)config provider:(Sportstalk247KitJWTProvider *)provider __attribute__((swift_name("setJWTProvider(config:provider:)")));
 @end
 
@@ -165,40 +168,6 @@ __attribute__((swift_name("WebRegexConstants")))
 @property (readonly) NSString *IPV6_ADDRESS __attribute__((swift_name("IPV6_ADDRESS")));
 @property (readonly) NSString *IP_ADDRESS __attribute__((swift_name("IP_ADDRESS")));
 @property (readonly) NSString *WEB_URL __attribute__((swift_name("WEB_URL")));
-@end
-
-__attribute__((swift_name("ChatModerationService")))
-@protocol Sportstalk247KitChatModerationService
-@required
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)approveMessageEventId:(NSString *)eventId approve:(BOOL)approve completionHandler:(void (^)(Sportstalk247KitChatEvent * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessage(eventId:approve:completionHandler:)")));
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)listMessagesNeedingModerationRoomId:(NSString * _Nullable)roomId limit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor completionHandler:(void (^)(Sportstalk247KitListMessagesNeedingModerationResponse * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listMessagesNeedingModeration(roomId:limit:cursor:completionHandler:)")));
-@end
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ChatModerationRestApiServiceImpl")))
-@interface Sportstalk247KitChatModerationRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitChatModerationService>
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)approveMessageEventId:(NSString *)eventId approve:(BOOL)approve completionHandler:(void (^)(Sportstalk247KitChatEvent * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessage(eventId:approve:completionHandler:)")));
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)listMessagesNeedingModerationRoomId:(NSString * _Nullable)roomId limit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor completionHandler:(void (^)(Sportstalk247KitListMessagesNeedingModerationResponse * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listMessagesNeedingModeration(roomId:limit:cursor:completionHandler:)")));
 @end
 
 __attribute__((swift_name("ChatService")))
@@ -431,6 +400,23 @@ __attribute__((swift_name("ChatService")))
 @property Sportstalk247KitMutableSet<NSString *> *preRenderedMessages __attribute__((swift_name("preRenderedMessages")));
 @end
 
+__attribute__((swift_name("ChatModerationService")))
+@protocol Sportstalk247KitChatModerationService
+@required
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)approveMessageEventId:(NSString *)eventId approve:(BOOL)approve completionHandler:(void (^)(Sportstalk247KitChatEvent * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessage(eventId:approve:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)listMessagesNeedingModerationRoomId:(NSString * _Nullable)roomId limit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor completionHandler:(void (^)(Sportstalk247KitListMessagesNeedingModerationResponse * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listMessagesNeedingModeration(roomId:limit:cursor:completionHandler:)")));
+@end
+
 __attribute__((swift_name("ChatClient")))
 @protocol Sportstalk247KitChatClient <Sportstalk247KitChatService, Sportstalk247KitChatModerationService>
 @required
@@ -439,9 +425,9 @@ __attribute__((swift_name("ChatClient")))
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ChatRestApiServiceImpl")))
-@interface Sportstalk247KitChatRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitChatClient>
-@property (class, readonly, getter=companion) Sportstalk247KitChatRestApiServiceImplCompanion *companion __attribute__((swift_name("companion")));
+__attribute__((swift_name("ChatClientImpl")))
+@interface Sportstalk247KitChatClientImpl : Sportstalk247KitBase <Sportstalk247KitChatClient>
+@property (class, readonly, getter=companion) Sportstalk247KitChatClientImplCompanion *companion __attribute__((swift_name("companion")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -684,46 +670,29 @@ __attribute__((swift_name("ChatRestApiServiceImpl")))
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ChatRestApiServiceImpl.Companion")))
-@interface Sportstalk247KitChatRestApiServiceImplCompanion : Sportstalk247KitBase
+__attribute__((swift_name("ChatClientImpl.Companion")))
+@interface Sportstalk247KitChatClientImplCompanion : Sportstalk247KitBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) Sportstalk247KitChatRestApiServiceImplCompanion *shared __attribute__((swift_name("shared")));
-@end
-
-__attribute__((swift_name("CommentModerationService")))
-@protocol Sportstalk247KitCommentModerationService
-@required
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)approveMessageInQueueCommentid:(NSString *)commentid request:(Sportstalk247KitApproveMessageRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessageInQueue(commentid:request:completionHandler:)")));
-
-/**
- * @note This method converts instances of CancellationException to errors.
- * Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)listCommentsInModerationQueueLimit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor conversationid:(NSString * _Nullable)conversationid filterHandle:(NSString * _Nullable)filterHandle filterKeyword:(NSString * _Nullable)filterKeyword filterModerationState:(Sportstalk247KitCommentFilterModerationState * _Nullable)filterModerationState completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listCommentsInModerationQueue(limit:cursor:conversationid:filterHandle:filterKeyword:filterModerationState:completionHandler:)")));
+@property (class, readonly, getter=shared) Sportstalk247KitChatClientImplCompanion *shared __attribute__((swift_name("shared")));
 @end
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommentModerationRestApiServiceImpl")))
-@interface Sportstalk247KitCommentModerationRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitCommentModerationService>
+__attribute__((swift_name("ChatModerationRestApiServiceImpl")))
+@interface Sportstalk247KitChatModerationRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitChatModerationService>
 
 /**
  * @note This method converts instances of CancellationException to errors.
  * Other uncaught Kotlin exceptions are fatal.
 */
-- (void)approveMessageInQueueCommentid:(NSString *)commentid request:(Sportstalk247KitApproveMessageRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessageInQueue(commentid:request:completionHandler:)")));
+- (void)approveMessageEventId:(NSString *)eventId approve:(BOOL)approve completionHandler:(void (^)(Sportstalk247KitChatEvent * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessage(eventId:approve:completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
  * Other uncaught Kotlin exceptions are fatal.
 */
-- (void)listCommentsInModerationQueueLimit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor conversationid:(NSString * _Nullable)conversationid filterHandle:(NSString * _Nullable)filterHandle filterKeyword:(NSString * _Nullable)filterKeyword filterModerationState:(Sportstalk247KitCommentFilterModerationState * _Nullable)filterModerationState completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listCommentsInModerationQueue(limit:cursor:conversationid:filterHandle:filterKeyword:filterModerationState:completionHandler:)")));
+- (void)listMessagesNeedingModerationRoomId:(NSString * _Nullable)roomId limit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor completionHandler:(void (^)(Sportstalk247KitListMessagesNeedingModerationResponse * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listMessagesNeedingModeration(roomId:limit:cursor:completionHandler:)")));
 @end
 
 __attribute__((swift_name("CommentService")))
@@ -845,9 +814,37 @@ __attribute__((swift_name("CommentService")))
 - (void)voteOnCommentConversationid:(NSString *)conversationid commentid:(NSString *)commentid request:(Sportstalk247KitVoteOnCommentRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("voteOnComment(conversationid:commentid:request:completionHandler:)")));
 @end
 
+__attribute__((swift_name("CommentModerationService")))
+@protocol Sportstalk247KitCommentModerationService
+@required
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)approveMessageInQueueCommentid:(NSString *)commentid request:(Sportstalk247KitApproveMessageRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessageInQueue(commentid:request:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)listCommentsInModerationQueueLimit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor conversationid:(NSString * _Nullable)conversationid filterHandle:(NSString * _Nullable)filterHandle filterKeyword:(NSString * _Nullable)filterKeyword filterModerationState:(Sportstalk247KitCommentFilterModerationState * _Nullable)filterModerationState completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listCommentsInModerationQueue(limit:cursor:conversationid:filterHandle:filterKeyword:filterModerationState:completionHandler:)")));
+@end
+
+__attribute__((swift_name("CommentClient")))
+@protocol Sportstalk247KitCommentClient <Sportstalk247KitCommentService, Sportstalk247KitCommentModerationService>
+@required
+@end
+
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("CommentRestApiServiceImpl")))
-@interface Sportstalk247KitCommentRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitCommentService>
+__attribute__((swift_name("CommentClientImpl")))
+@interface Sportstalk247KitCommentClientImpl : Sportstalk247KitBase <Sportstalk247KitCommentClient>
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)approveMessageInQueueCommentid:(NSString *)commentid request:(Sportstalk247KitApproveMessageRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessageInQueue(commentid:request:completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -902,6 +899,12 @@ __attribute__((swift_name("CommentRestApiServiceImpl")))
  * Other uncaught Kotlin exceptions are fatal.
 */
 - (void)listCommentsConversationid:(NSString *)conversationid cursor:(NSString * _Nullable)cursor limit:(Sportstalk247KitInt * _Nullable)limit direction:(Sportstalk247KitDirectionType * _Nullable)direction sort:(Sportstalk247KitSortType * _Nullable)sort includechildren:(Sportstalk247KitBoolean * _Nullable)includechildren includeinactive:(Sportstalk247KitBoolean * _Nullable)includeinactive completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listComments(conversationid:cursor:limit:direction:sort:includechildren:includeinactive:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)listCommentsInModerationQueueLimit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor conversationid:(NSString * _Nullable)conversationid filterHandle:(NSString * _Nullable)filterHandle filterKeyword:(NSString * _Nullable)filterKeyword filterModerationState:(Sportstalk247KitCommentFilterModerationState * _Nullable)filterModerationState completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listCommentsInModerationQueue(limit:cursor:conversationid:filterHandle:filterKeyword:filterModerationState:completionHandler:)")));
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -962,6 +965,23 @@ __attribute__((swift_name("CommentRestApiServiceImpl")))
  * Other uncaught Kotlin exceptions are fatal.
 */
 - (void)voteOnCommentConversationid:(NSString *)conversationid commentid:(NSString *)commentid request:(Sportstalk247KitVoteOnCommentRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("voteOnComment(conversationid:commentid:request:completionHandler:)")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("CommentModerationRestApiServiceImpl")))
+@interface Sportstalk247KitCommentModerationRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitCommentModerationService>
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)approveMessageInQueueCommentid:(NSString *)commentid request:(Sportstalk247KitApproveMessageRequest *)request completionHandler:(void (^)(Sportstalk247KitComment * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("approveMessageInQueue(commentid:request:completionHandler:)")));
+
+/**
+ * @note This method converts instances of CancellationException to errors.
+ * Other uncaught Kotlin exceptions are fatal.
+*/
+- (void)listCommentsInModerationQueueLimit:(Sportstalk247KitInt * _Nullable)limit cursor:(NSString * _Nullable)cursor conversationid:(NSString * _Nullable)conversationid filterHandle:(NSString * _Nullable)filterHandle filterKeyword:(NSString * _Nullable)filterKeyword filterModerationState:(Sportstalk247KitCommentFilterModerationState * _Nullable)filterModerationState completionHandler:(void (^)(Sportstalk247KitListComments * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("listCommentsInModerationQueue(limit:cursor:conversationid:filterHandle:filterKeyword:filterModerationState:completionHandler:)")));
 @end
 
 __attribute__((swift_name("UserService")))
@@ -1065,9 +1085,14 @@ __attribute__((swift_name("UserService")))
 - (void)setUserNotificationAsReadByChatEventUserId:(NSString *)userId chatEventId:(NSString *)chatEventId read:(BOOL)read completionHandler:(void (^)(Sportstalk247KitUserNotification * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("setUserNotificationAsReadByChatEvent(userId:chatEventId:read:completionHandler:)")));
 @end
 
+__attribute__((swift_name("UserClient")))
+@protocol Sportstalk247KitUserClient <Sportstalk247KitUserService>
+@required
+@end
+
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("UserRestApiServiceImpl")))
-@interface Sportstalk247KitUserRestApiServiceImpl : Sportstalk247KitBase <Sportstalk247KitUserService>
+__attribute__((swift_name("UserClientImpl")))
+@interface Sportstalk247KitUserClientImpl : Sportstalk247KitBase <Sportstalk247KitUserClient>
 
 /**
  * @note This method converts instances of CancellationException to errors.
@@ -1166,11 +1191,6 @@ __attribute__((swift_name("UserRestApiServiceImpl")))
 - (void)setUserNotificationAsReadByChatEventUserId:(NSString *)userId chatEventId:(NSString *)chatEventId read:(BOOL)read completionHandler:(void (^)(Sportstalk247KitUserNotification * _Nullable, NSError * _Nullable))completionHandler __attribute__((swift_name("setUserNotificationAsReadByChatEvent(userId:chatEventId:read:completionHandler:)")));
 @end
 
-__attribute__((swift_name("CommentClient")))
-@protocol Sportstalk247KitCommentClient <Sportstalk247KitCommentService, Sportstalk247KitCommentModerationService>
-@required
-@end
-
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("JWTProvider")))
 @interface Sportstalk247KitJWTProvider : Sportstalk247KitBase
@@ -1179,11 +1199,6 @@ __attribute__((swift_name("JWTProvider")))
 - (id<Sportstalk247KitKotlinx_coroutines_coreFlow>)observe __attribute__((swift_name("observe()")));
 - (void)refreshToken __attribute__((swift_name("refreshToken()")));
 - (void)setTokenValue:(NSString * _Nullable)value __attribute__((swift_name("setToken(value:)")));
-@end
-
-__attribute__((swift_name("UserClient")))
-@protocol Sportstalk247KitUserClient <Sportstalk247KitUserService>
-@required
 @end
 
 
@@ -3974,7 +3989,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ChatClientCoroutineExtKt")))
 @interface Sportstalk247KitChatClientCoroutineExtKt : Sportstalk247KitBase
 + (id<Sportstalk247KitKotlinx_coroutines_coreFlow>)mergeFlows:(Sportstalk247KitKotlinArray<id<Sportstalk247KitKotlinx_coroutines_coreFlow>> *)flows __attribute__((swift_name("merge(flows:)")));
-+ (id<Sportstalk247KitKotlinx_coroutines_coreFlow>)allEventUpdates:(id<Sportstalk247KitChatService>)receiver chatRoomId:(NSString *)chatRoomId frequency:(int64_t)frequency limit:(Sportstalk247KitInt * _Nullable)limit smoothEventUpdates:(BOOL)smoothEventUpdates eventSpacingMs:(int64_t)eventSpacingMs maxEventBufferSize:(int32_t)maxEventBufferSize onChatEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onChatEvent onGoalEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onGoalEvent onAdEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onAdEvent onReply:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onReply onReaction:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onReaction onPurgeEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onPurgeEvent __attribute__((swift_name("allEventUpdates(_:chatRoomId:frequency:limit:smoothEventUpdates:eventSpacingMs:maxEventBufferSize:onChatEvent:onGoalEvent:onAdEvent:onReply:onReaction:onPurgeEvent:)")));
++ (id<Sportstalk247KitKotlinx_coroutines_coreFlow>)allEventUpdates:(id<Sportstalk247KitChatClient>)receiver chatRoomId:(NSString *)chatRoomId frequency:(int64_t)frequency limit:(Sportstalk247KitInt * _Nullable)limit smoothEventUpdates:(BOOL)smoothEventUpdates eventSpacingMs:(int64_t)eventSpacingMs maxEventBufferSize:(int32_t)maxEventBufferSize onChatEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onChatEvent onGoalEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onGoalEvent onAdEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onAdEvent onReply:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onReply onReaction:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onReaction onPurgeEvent:(void (^ _Nullable)(Sportstalk247KitChatEvent *))onPurgeEvent __attribute__((swift_name("allEventUpdates(_:chatRoomId:frequency:limit:smoothEventUpdates:eventSpacingMs:maxEventBufferSize:onChatEvent:onGoalEvent:onAdEvent:onReply:onReaction:onPurgeEvent:)")));
 @end
 
 __attribute__((swift_name("KotlinRuntimeException")))
