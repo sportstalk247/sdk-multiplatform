@@ -1,6 +1,7 @@
 package com.sportstalk.sdk.core.impl
 
 import com.sportstalk.sdk.core.ConfigUtils
+import com.sportstalk.sdk.core.ServiceFactory
 import com.sportstalk.sdk.core.api.ChatClient
 import com.sportstalk.sdk.model.ApiResponse
 import com.sportstalk.sdk.model.ClientConfig
@@ -19,10 +20,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.datetime.Clock
 import kotlin.math.abs
 
-class ChatRestApiServiceImpl
+class ChatClientImpl
 internal constructor(
     private val config: ClientConfig,
-    private val client: HttpClient,
+    private val client: HttpClient = ServiceFactory.RestApi.getKtorClientInstance(config),
 ) : ChatClient {
 
     private val appId: String = config.appId

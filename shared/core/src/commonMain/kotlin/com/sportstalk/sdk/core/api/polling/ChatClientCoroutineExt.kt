@@ -1,6 +1,6 @@
 package com.sportstalk.sdk.core.api.polling
 
-import com.sportstalk.sdk.core.service.ChatService
+import com.sportstalk.sdk.core.api.ChatClient
 import com.sportstalk.sdk.model.SportsTalkException
 import com.sportstalk.sdk.model.chat.ChatEvent
 import com.sportstalk.sdk.model.chat.EventType
@@ -8,7 +8,7 @@ import com.sportstalk.sdk.model.chat.polling.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-fun ChatService.allEventUpdates(
+fun ChatClient.allEventUpdates(
     chatRoomId: String,
     /*
      * Polling Frequency

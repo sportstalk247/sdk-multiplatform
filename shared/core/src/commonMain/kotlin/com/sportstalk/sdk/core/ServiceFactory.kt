@@ -94,7 +94,7 @@ internal object ServiceFactory {
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
-                UserRestApiServiceImpl(
+                UserClientImpl(
                     config = config,
                     client = ktorClient,
                 ).also {
@@ -113,7 +113,7 @@ internal object ServiceFactory {
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
-                ChatRestApiServiceImpl(
+                ChatClientImpl(
                     config = config,
                     client = ktorClient,
                 ).also {
@@ -151,7 +151,7 @@ internal object ServiceFactory {
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
-                CommentRestApiServiceImpl(
+                CommentClientImpl(
                     config = config,
                     client = ktorClient,
                 ).also {

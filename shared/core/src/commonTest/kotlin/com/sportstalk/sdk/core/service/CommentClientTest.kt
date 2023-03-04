@@ -2,8 +2,12 @@ package com.sportstalk.sdk.core.service
 
 import com.sportstalk.sdk.core.RandomString
 import com.sportstalk.sdk.core.ServiceFactory
+import com.sportstalk.sdk.core.SportsTalk247
+import com.sportstalk.sdk.core.api.CommentClient
+import com.sportstalk.sdk.core.api.UserClient
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.Kind
+import com.sportstalk.sdk.model.chat.ModerationType
 import com.sportstalk.sdk.model.comment.*
 import com.sportstalk.sdk.model.reactions.Reaction
 import com.sportstalk.sdk.model.reactions.ReactionType
@@ -19,10 +23,10 @@ import kotlinx.serialization.json.Json
 import kotlin.random.Random
 import kotlin.test.*
 
-class CommentServiceTest {
+class CommentClientTest {
     private lateinit var config: ClientConfig
-    private lateinit var userService: UserService
-    private lateinit var commentService: CommentService
+    private lateinit var userService: UserClient
+    private lateinit var commentService: CommentClient
     private lateinit var json: Json
 
     private val testScope = TestScope()
@@ -37,8 +41,8 @@ class CommentServiceTest {
             endpoint = "https://api.sportstalk247.com/api/v3"
         )
         json = ServiceFactory.RestApi.json
-        userService = ServiceFactory.User.get(config)
-        commentService = ServiceFactory.Comment.get(config)
+        userService = SportsTalk247.UserClient(config)
+        commentService = SportsTalk247.CommentClient(config)
 
         Dispatchers.setMain(testDispatcher)
     }
@@ -1780,6 +1784,256 @@ class CommentServiceTest {
             fail(err.message)
         } finally {
             deleteTestUsers(TestData.TestUser.userid)
+        }
+    }
+
+    @Test
+    fun `T - List Comments In Moderation Queue`() = testScope.runTest {
+        // GIVEN
+        val testUserData = TestData.TestUser
+        val testConversationData = TestData.conversations(config.appId)[0]
+        val testCommentData = TestData.comments(config.appId)[0]
+
+        // WHEN
+        try {
+            // First create the User instance
+            val createdUser = userService.createOrUpdateUser(
+                request = CreateUpdateUserRequest(
+                    userid = testUserData.userid!!,
+                    handle = testUserData.handle,
+                    displayname = testUserData.displayname,
+                    pictureurl = testUserData.pictureurl,
+                    profileurl = testUserData.profileurl,
+                )
+            )
+            // Then, create the Conversation instance
+            val createdConversation = commentService.createOrUpdateConversation(
+                request = CreateOrUpdateConversationRequest(
+                    conversationid = testConversationData.conversationid!!,
+                    property = testConversationData.property!!,
+                    moderation = ModerationType.pre,
+                    enableprofanityfilter = testConversationData.enableprofanityfilter,
+                    title = testConversationData.title,
+                    open = testConversationData.open,
+                    customid = testConversationData.customid
+                )
+            )
+            // Create an 2 Comment instances
+            delay(300L)
+            advanceUntilIdle()
+            val createdComment1 = commentService.createComment(
+                conversationid = createdConversation.conversationid!!,
+                request = CreateCommentRequest(
+                    userid = createdUser.userid!!,
+                    displayname = createdUser.displayname,
+                    body = testCommentData.body!!,
+                    customtype = testCommentData.customtype,
+                    customfield1 = testCommentData.customfield1,
+                    customfield2 = testCommentData.customfield2,
+                    custompayload = testCommentData.custompayload,
+                )
+            )
+            delay(300L)
+            advanceUntilIdle()
+            val createdComment2 = commentService.createComment(
+                conversationid = createdConversation.conversationid!!,
+                request = CreateCommentRequest(
+                    userid = createdUser.userid!!,
+                    displayname = createdUser.displayname,
+                    body = testCommentData.body!!,
+                    customtype = testCommentData.customtype,
+                    customfield1 = testCommentData.customfield1,
+                    customfield2 = testCommentData.customfield2,
+                    custompayload = testCommentData.custompayload,
+                )
+            )
+
+            // Report above comments
+            delay(2000L)
+            advanceUntilIdle()
+            val reportedComment1 = commentService.reportComment(
+                conversationid = createdConversation.conversationid!!,
+                commentid = createdComment1.id!!,
+                request = ReportCommentRequest(
+                    userid = createdUser.userid!!,
+                    reporttype = ReportType.ABUSE,
+                ),
+            )
+            delay(2000L)
+            advanceUntilIdle()
+            val reportedComment2 = commentService.reportComment(
+                conversationid = createdConversation.conversationid!!,
+                commentid = createdComment2.id!!,
+                request = ReportCommentRequest(
+                    userid = createdUser.userid!!,
+                    reporttype = ReportType.SPAM,
+                ),
+            )
+
+            val testExpectedResult = listOf(
+                reportedComment1,
+                reportedComment2,
+            )
+
+            delay(4000L)
+            advanceUntilIdle()
+            val testActualResult = commentService.listCommentsInModerationQueue(
+                conversationid = createdConversation.conversationid!!,
+            )
+
+            // THEN
+            println(
+                "`List Comments In Moderation Queue`() -> testActualResult = \n" +
+                        json.encodeToString(
+                            ListComments.serializer(),
+                            testActualResult,
+                        )
+            )
+
+            assertTrue { testActualResult.itemcount == 2 }
+            assertTrue { testActualResult.comments.containsAll(testExpectedResult) }
+
+        } catch (err: Throwable) {
+            err.printStackTrace()
+            fail(err.message)
+        } finally {
+            deleteTestUsers(CommentClientTest.TestData.TestUser.userid)
+            deleteTestConversations(testConversationData.conversationid)
+        }
+    }
+
+    @Test
+    fun `U - Approve Message In Queue`() = testScope.runTest {
+        // GIVEN
+        val testUserData = TestData.TestUser
+        val testConversationData = TestData.conversations(config.appId)[0]
+        val testCommentData = TestData.comments(config.appId)[0]
+
+        // WHEN
+        try {
+            // First create the User instance
+            val createdUser = userService.createOrUpdateUser(
+                request = CreateUpdateUserRequest(
+                    userid = testUserData.userid!!,
+                    handle = testUserData.handle,
+                    displayname = testUserData.displayname,
+                    pictureurl = testUserData.pictureurl,
+                    profileurl = testUserData.profileurl,
+                )
+            )
+            // Then, create the Conversation instance
+            val createdConversation = commentService.createOrUpdateConversation(
+                request = CreateOrUpdateConversationRequest(
+                    conversationid = testConversationData.conversationid!!,
+                    property = testConversationData.property!!,
+                    moderation = testConversationData.moderation!!,
+                    enableprofanityfilter = testConversationData.enableprofanityfilter,
+                    title = testConversationData.title,
+                    open = testConversationData.open,
+                    customid = testConversationData.customid
+                )
+            )
+            // Create an 2 Comment instances
+            delay(300L)
+            advanceUntilIdle()
+            val createdComment1 = commentService.createComment(
+                conversationid = createdConversation.conversationid!!,
+                request = CreateCommentRequest(
+                    userid = createdUser.userid!!,
+                    displayname = createdUser.displayname,
+                    body = testCommentData.body!!,
+                    customtype = testCommentData.customtype,
+                    customfield1 = testCommentData.customfield1,
+                    customfield2 = testCommentData.customfield2,
+                    custompayload = testCommentData.custompayload,
+                )
+            )
+            delay(300L)
+            advanceUntilIdle()
+            val createdComment2 = commentService.createComment(
+                conversationid = createdConversation.conversationid!!,
+                request = CreateCommentRequest(
+                    userid = createdUser.userid!!,
+                    displayname = createdUser.displayname,
+                    body = testCommentData.body!!,
+                    customtype = testCommentData.customtype,
+                    customfield1 = testCommentData.customfield1,
+                    customfield2 = testCommentData.customfield2,
+                    custompayload = testCommentData.custompayload,
+                )
+            )
+
+            // Report above comments
+            delay(2000L)
+            advanceUntilIdle()
+            val reportedComment1 = commentService.reportComment(
+                conversationid = createdConversation.conversationid!!,
+                commentid = createdComment1.id!!,
+                request = ReportCommentRequest(
+                    userid = createdUser.userid!!,
+                    reporttype = ReportType.ABUSE,
+                ),
+            )
+            delay(2000L)
+            advanceUntilIdle()
+            val reportedComment2 = commentService.reportComment(
+                conversationid = createdConversation.conversationid!!,
+                commentid = createdComment2.id!!,
+                request = ReportCommentRequest(
+                    userid = createdUser.userid!!,
+                    reporttype = ReportType.SPAM,
+                ),
+            )
+
+            // Finally, Approve/Deny for-moderation comments
+            val testExpectedResult1 = reportedComment1.copy(
+                moderation = "na",
+            )
+            delay(4000L)
+            advanceUntilIdle()
+            val testActualResult1 = commentService.approveMessageInQueue(
+                commentid = reportedComment1.id!!,
+                request = ApproveMessageRequest(approve = true),
+            )
+            val testExpectedResult2 = reportedComment2.copy(
+                moderation = "na",
+            )
+            delay(4000L)
+            advanceUntilIdle()
+            val testActualResult2 = commentService.approveMessageInQueue(
+                commentid = reportedComment2.id!!,
+                request = ApproveMessageRequest(approve = true),
+            )
+
+            // THEN
+            println(
+                "`Approve Message In Queue`() -> testActualResult1 = \n" +
+                        json.encodeToString(
+                            Comment.serializer(),
+                            testActualResult1,
+                        )
+            )
+            println(
+                "`Approve Message In Queue`() -> testActualResult2 = \n" +
+                        json.encodeToString(
+                            Comment.serializer(),
+                            testActualResult2,
+                        )
+            )
+
+            assertTrue { testActualResult1.id == testActualResult1.id }
+            assertTrue { testActualResult1.body == testActualResult1.body }
+            assertTrue { testActualResult1.moderation == testActualResult1.moderation }
+            assertTrue { testActualResult2.id == testActualResult2.id }
+            assertTrue { testActualResult2.body == testActualResult2.body }
+            assertTrue { testActualResult2.moderation == testActualResult2.moderation }
+
+        } catch (err: Throwable) {
+            err.printStackTrace()
+            fail(err.message)
+        } finally {
+            deleteTestUsers(CommentClientTest.TestData.TestUser.userid)
+            deleteTestConversations(testConversationData.conversationid)
         }
     }
 

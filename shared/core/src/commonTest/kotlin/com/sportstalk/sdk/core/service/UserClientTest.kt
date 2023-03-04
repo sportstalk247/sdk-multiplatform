@@ -2,6 +2,9 @@ package com.sportstalk.sdk.core.service
 
 import com.sportstalk.sdk.core.RandomString
 import com.sportstalk.sdk.core.ServiceFactory
+import com.sportstalk.sdk.core.SportsTalk247
+import com.sportstalk.sdk.core.api.ChatClient
+import com.sportstalk.sdk.core.api.UserClient
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.Kind
 import com.sportstalk.sdk.model.SportsTalkException
@@ -17,11 +20,11 @@ import kotlinx.serialization.json.Json
 import kotlin.random.Random
 import kotlin.test.*
 
-class UserServiceTest {
+class UserClientTest {
 
     private lateinit var config: ClientConfig
-    private lateinit var userService: UserService
-    private lateinit var chatService: ChatService
+    private lateinit var userService: UserClient
+    private lateinit var chatService: ChatClient
     private lateinit var json: Json
 
     private val testScope = TestScope()
@@ -36,8 +39,8 @@ class UserServiceTest {
             endpoint = "https://api.sportstalk247.com/api/v3"
         )
         json = ServiceFactory.RestApi.json
-        userService = ServiceFactory.User.get(config)
-        chatService = ServiceFactory.Chat.get(config)
+        userService = SportsTalk247.UserClient(config)
+        chatService = SportsTalk247.ChatClient(config)
 
         Dispatchers.setMain(testDispatcher)
     }

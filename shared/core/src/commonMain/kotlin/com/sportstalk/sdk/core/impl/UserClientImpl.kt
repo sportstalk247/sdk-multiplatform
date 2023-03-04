@@ -1,24 +1,23 @@
 package com.sportstalk.sdk.core.impl
 
 import com.sportstalk.sdk.core.ConfigUtils
+import com.sportstalk.sdk.core.ServiceFactory
+import com.sportstalk.sdk.core.api.UserClient
 import com.sportstalk.sdk.core.service.UserService
 import com.sportstalk.sdk.model.ApiResponse
 import com.sportstalk.sdk.model.ClientConfig
-import com.sportstalk.sdk.model.Kind
 import com.sportstalk.sdk.model.SportsTalkException
 import com.sportstalk.sdk.model.user.*
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import kotlinx.serialization.json.Json
 
-class UserRestApiServiceImpl
+class UserClientImpl
 internal constructor(
     private val config: ClientConfig,
-    private val client: HttpClient,
-) : UserService {
+    private val client: HttpClient = ServiceFactory.RestApi.getKtorClientInstance(config),
+) : UserClient {
 
     private val appId: String = config.appId
     private val endpoint: String = ConfigUtils.validateEndpoint(config.endpoint)
