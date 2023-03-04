@@ -6,8 +6,8 @@ plugins {
     id("com.android.library")
     id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")
-    id("maven-publish")
     id("com.chromaticnoise.multiplatform-swiftpackage")
+    id("co.touchlab.faktory.kmmbridge")
 }
 
 kotlin {
@@ -99,69 +99,21 @@ nativeCoroutines {
 }
 
 //
-// Maven publish
+// KMM Bridge Plugin Setup
 //
-/*publishing {
-    repositories {
-        maven {
-            name = "Snapshot"
-            val releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            val snapshotRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            if (version.toString().endsWith("SNAPSHOT")) setUrl { snapshotRepoUrl }
-            else setUrl { releasesRepoUrl }
-            credentials {
-                username = ""
-                password = ""
-            }
-        }
-    }
+kmmbridge {
+//    mavenPublishArtifacts()
+//    githubReleaseVersions()
 
-    publications {
-        create<MavenPublication>("Maven") {
-            groupId = "com.sportstalk.sdk"
-            artifactId = "kmm"
-            version = "2.0.0-beta01"
-            from(components["kotlin"])
-        }
-        withType<MavenPublication> {
-            pom {
-                packaging = "jar"
-                name.set("Sportstalk247 SDK - KMM")
-                description.set("Sportstalk247 SDK for Android and iOS")
-                url.set("https://www.sportstalk247.com/")
-//                licenses {
-//                    license {
-//                        name.set("MIT license")
-//                        url.set("https://opensource.org/licenses/MIT")
-//                    }
-//                }
-                issueManagement {
-                    system.set("Gitlab")
-                    url.set("https://gitlab.com/sportstalk247/sdk-kmm")
-                }
-                scm {
-                    connection.set("scm:git:git@gitlab.com:sportstalk247/sdk-kmm.git")
-                    developerConnection.set("scm:git:git@gitlab.com:sportstalk247/sdk-kmm.git")
-                    url.set("https://gitlab.com/sportstalk247/sdk-kmm")
-                }
-                developers {
-                    developer {
-                        name.set("Lawrence C. Cendaña")
-                        email.set("lcendana@sportstalk247.com")
-                    }
-                }
-            }
-        }
-    }
-}*/
+    // Preferred Publish Versioning
+    /*gitTagVersions()
+    timestampVersions()*/
+    manualVersions()
 
-//signing {
-//    useInMemoryPgpKeys(
-//        "",
-//        ""
-//    )
-//    sign(publishing.publications)
-//}
+    spm()
+    cocoapods("git@gitlab.com:sportstalk247/sdk-kmm.git")
+    //etc
+}
 
 //
 // Swift Package Manager

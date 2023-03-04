@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath("com.rickclephas.kmp:kmp-nativecoroutines-gradle-plugin:1.0.0-ALPHA-4")
         classpath("com.chromaticnoise.multiplatform-swiftpackage:com.chromaticnoise.multiplatform-swiftpackage.gradle.plugin:2.0.3")
+        classpath("co.touchlab.faktory.kmmbridge:co.touchlab.faktory.kmmbridge.gradle.plugin:0.3.5")
     }
 }
 

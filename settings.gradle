@@ -7,6 +7,9 @@ pluginManagement {
             url "https://jitpack.io"
             /*credentials { username authToken }*/
         }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
     }
 }
 
