@@ -24,6 +24,9 @@ androidxTestRules = "1.4.0"
 
 turbine = "0.12.1"#"0.10.0"
 
+kmpNativeCoroutines = "v1.0.0-ALPHA-4"
+googleKsp = "1.8.10-1.0.9"#"1.8.0-1.0.8"#"1.8.0-1.0.9"
+
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -54,6 +57,8 @@ androidLibrary = { id = "com.android.library", version.ref = "gradlePluginAndroi
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kmpNativeCoroutines = { id = "com.rickclephas.kmp.nativecoroutines", version.ref = "kmpNativeCoroutines" }
+googleKsp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
 kmmSwiftPackage = { id = "com.chromaticnoise.multiplatform-swiftpackage", version.ref = "kmmSwiftPackage" }
 
 [bundles]

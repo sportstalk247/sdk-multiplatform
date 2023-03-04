@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'Sportstalk247Kit'
-    spec.version                  = '2.0.0'
+    spec.version                  = '2.0.0-beta01'
     spec.homepage                 = 'Link to the Shared Module homepage'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
