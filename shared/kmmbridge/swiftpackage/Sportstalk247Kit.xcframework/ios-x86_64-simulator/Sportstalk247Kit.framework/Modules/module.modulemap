@@ -1,8 +1,0 @@
-framework module Sportstalk247Kit {
-    umbrella header "Sportstalk247Kit.h"
-
-    export *
-    module * { export * }
-
-    use Foundation
-}
