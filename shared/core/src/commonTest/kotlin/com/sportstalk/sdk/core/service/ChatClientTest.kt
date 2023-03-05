@@ -5,7 +5,6 @@ import com.sportstalk.sdk.core.ServiceFactory
 import com.sportstalk.sdk.core.SportsTalk247
 import com.sportstalk.sdk.core.api.ChatClient
 import com.sportstalk.sdk.core.api.UserClient
-import com.sportstalk.sdk.core.api.polling.allEventUpdates
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.Kind
 import com.sportstalk.sdk.model.SportsTalkException
@@ -1752,7 +1751,7 @@ class ChatClientTest {
                 }
                 .launchIn(testScope)
 
-            delay(1500)
+            delay(4000)
             advanceUntilIdle()
 
             job.cancelAndJoin()
