@@ -35,7 +35,7 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = "2.0.0-beta01"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "15.4"
         framework {
             baseName = "Sportstalk247Kit"
             isStatic = false

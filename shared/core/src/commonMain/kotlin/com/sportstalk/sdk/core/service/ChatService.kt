@@ -1,5 +1,6 @@
 package com.sportstalk.sdk.core.service
 
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.sportstalk.sdk.model.chat.*
 import com.sportstalk.sdk.model.user.User
 import kotlinx.coroutines.flow.Flow
@@ -52,6 +53,7 @@ interface ChatService {
      * To detect new messages using polling, call this function and then process items
      * with a newer timestamp than the most recent one you have already processed.
      */
+    @NativeCoroutines
     fun allEventUpdates(
         chatRoomId: String,
         /*
