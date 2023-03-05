@@ -4,7 +4,6 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-//    id("com.chromaticnoise.multiplatform-swiftpackage")
     id("co.touchlab.faktory.kmmbridge")
 }
 
@@ -105,25 +104,6 @@ kmmbridge {
     cocoapods("git@gitlab.com:sportstalk247/sdk-kmm.git")
     //etc
 }
-
-//
-// Swift Package Manager
-//
-//multiplatformSwiftPackage {
-//    packageName("Sportstalk247Kit")
-//    swiftToolsVersion("5.3")
-//    targetPlatforms {
-//        iOS { v("13") }
-//        macOS{ v("10_15") }
-//    }
-//
-//    // Distribute locally for now
-//    distributionMode { local() }
-//    /*distributionMode { remote("https://example.com") }*/
-//
-//    /*buildConfiguration { debug() }*/
-//    /*buildConfiguration { release() }*/
-//}
 
 android {
     namespace = "com.sportstalk.sdk.kmmbridge"

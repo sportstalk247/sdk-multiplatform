@@ -3,13 +3,8 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven {
-            url "https://jitpack.io"
-            /*credentials { username authToken }*/
-        }
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
-        }
+        maven("https://jitpack.io")
+        maven("https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
 
@@ -23,6 +18,6 @@ dependencyResolutionManagement {
 enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "Sportstalk247_Kotlin_Multiplatform"
-include ':shared:model'
-include ':shared:core'
-include ':shared:kmmbridge'
+include(":shared:model")
+include(":shared:core")
+include(":shared:kmmbridge")

@@ -190,7 +190,7 @@ internal constructor(
 
     override suspend fun globallyPurgeUserContent(userId: String, byuserid: String): GloballyPurgeUserContentResponse =
         try {
-            val response = client.request(
+            client.request(
                 "${endpoint}${appId}" +
                         "/user/users/${userId.encodeURLPath()}/globalpurge"
             ) {

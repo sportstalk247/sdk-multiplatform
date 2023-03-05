@@ -69,7 +69,7 @@ internal constructor(
     private var _chatEventsEmitter = MutableSharedFlow<List<ChatEvent>>()
     override var chatEventsEmitter: Flow<List<ChatEvent>>
         get() = _chatEventsEmitter.asSharedFlow()
-        set(value) {}
+        set(_) {}
 
     private val roomSubscriptions: MutableSet<String> = mutableSetOf()
     override fun roomSubscriptions(): Set<String> = roomSubscriptions
