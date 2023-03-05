@@ -13,8 +13,6 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
-
-        publishLibraryVariants("release", "debug")
     }
     iosX64()
     iosArm64()
