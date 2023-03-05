@@ -4,8 +4,6 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("com.google.devtools.ksp")
-    id("com.rickclephas.kmp.nativecoroutines")
 //    id("com.chromaticnoise.multiplatform-swiftpackage")
     id("co.touchlab.faktory.kmmbridge")
 }
@@ -89,13 +87,6 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
-}
-
-//
-// KMPNativeCoroutines
-//
-nativeCoroutines {
-    suffix = "Apple"
 }
 
 //
