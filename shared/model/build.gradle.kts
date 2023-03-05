@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
+    id("maven-publish")
 }
 
 kotlin {
