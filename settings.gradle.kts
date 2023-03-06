@@ -5,6 +5,7 @@ pluginManagement {
         mavenCentral()
         maven("https://jitpack.io")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
+        maven("https://plugins.gradle.org/m2/")
     }
 }
 
