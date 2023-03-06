@@ -3,7 +3,6 @@ plugins {
     id("com.android.library")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
-    id("maven-publish")
 }
 
 kotlin {
@@ -73,6 +72,3 @@ android {
 //        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 }
-
-// Disable `:shared:model` from being published independently
-tasks.withType<PublishToMavenRepository>().configureEach { enabled = false }
