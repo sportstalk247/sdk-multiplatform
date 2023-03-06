@@ -1,8 +1,10 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("kotlinx-serialization")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
     id("kotlin-parcelize")
+    id("maven-publish")
 }
 
 kotlin {

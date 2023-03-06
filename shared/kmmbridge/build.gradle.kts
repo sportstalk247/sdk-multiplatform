@@ -1,10 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.kotlinMultiplatform)
     kotlin("native.cocoapods")
-    id("com.android.library")
-    id("co.touchlab.faktory.kmmbridge")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kmmBridge)
 }
 
 kotlin {

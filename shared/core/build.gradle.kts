@@ -1,9 +1,10 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.googleKsp)
+    alias(libs.plugins.kmpNativeCoroutines)
     id("maven-publish")
-    id("com.rickclephas.kmp.nativecoroutines")
 }
 
 kotlin {
