@@ -10,9 +10,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
+interface OnJWTRefreshToken {
+    @NativeCoroutines
+    suspend fun invoke(oldToken: String?): String?
+}
+
 class JWTProvider(
     private var token: String? = null,
-    private val tokenRefreshAction: (suspend (String? /* Old Token */) -> String? /* New Token */)? = null
+    private val tokenRefreshAction: OnJWTRefreshToken? = null//(suspend (String? /* Old Token */) -> String? /* New Token */)? = null
 ) {
     private val mutex = Mutex()
 
