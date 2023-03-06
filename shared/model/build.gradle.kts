@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
     id("kotlin-parcelize")
+    id("maven-publish")
 }
 
 kotlin {
@@ -13,10 +14,30 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+
+        // Publish an Android library(https://kotlinlang.org/docs/multiplatform-publish-lib.html#publish-an-android-library)
+        publishLibraryVariants("release", "debug")
     }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    // Avoid duplicate publications(https://kotlinlang.org/docs/multiplatform-publish-lib.html#avoid-duplicate-publications)
+    val publicationsFromMainHost =
+        listOf(
+            android(),
+            // Later add other targets
+        ).map { it.name } + "-kmm"
+    publishing {
+        publications {
+            matching { it.name in publicationsFromMainHost }.all {
+                val targetPublication = this@all
+                tasks.withType<AbstractPublishToMaven>()
+                    .matching { it.publication == targetPublication }
+                    .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
+            }
+        }
+    }
 
     sourceSets {
         all {
