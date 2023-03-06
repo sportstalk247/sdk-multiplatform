@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -6,6 +7,7 @@ plugins {
     kotlin("native.cocoapods")
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kmmBridge)
+    id("maven-publish")
 }
 
 kotlin {
@@ -89,16 +91,26 @@ kotlin {
     }
 }
 
+android {
+    namespace = "com.sportstalk.sdk.kmmbridge"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+//        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+}
+
 //
 // KMM Bridge Plugin Setup
 //
 kmmbridge {
-//    mavenPublishArtifacts()
-//    githubReleaseVersions()
+    // TODO:: Comment out for now...
+    // mavenPublishArtifacts()
 
     // Preferred Publish Versioning
-    /*gitTagVersions()
-    timestampVersions()*/
+    /*githubReleaseVersions()*/
+    /*gitTagVersions()*/
+    /*timestampVersions()*/
     manualVersions()
 
     spm()
@@ -106,11 +118,20 @@ kmmbridge {
     //etc
 }
 
-android {
-    namespace = "com.sportstalk.sdk.kmmbridge"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-//        targetSdk = libs.versions.targetSdk.get().toInt()
+publishing {
+    repositories {
+        maven {
+            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
+            // url = uri("https://gitlab.example.com/api/v4/projects/<PROJECT_ID>/packages/maven")
+            credentials(HttpHeaderCredentials::class) {
+                name = "REPLACE_WITH_TOKEN_NAME" // TODO::
+                value =
+                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
+            }
+            authentication {
+                create("header", HttpHeaderAuthentication::class)
+            }
+        }
+
     }
 }
