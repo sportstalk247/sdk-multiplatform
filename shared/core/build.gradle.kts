@@ -16,7 +16,7 @@ kotlin {
         }
 
         // Publish an Android library(https://kotlinlang.org/docs/multiplatform-publish-lib.html#publish-an-android-library)
-        publishAllLibraryVariants()
+        publishLibraryVariants("release", "debug")
     }
     iosX64()
     iosArm64()
