@@ -188,17 +188,33 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
                 endpoint = endpoint
             )
             
+            //
             // Prepare JWTProvider
-            val myJwtProvider = JWTProvider(
-                token = "...",  // Developer may immediately provide a token on init
-                tokenRefreshAction = /* This is a suspend function */ { 
-                    val newToken = doPerformFetchNewToken() // Developer may perform a long-running operation to generate a new JWT
-                    return@JWTProvider newToken
+            //
+            
+            // Create a class implementing KotlinSuspendFunction1 protocol
+            class OnJWTRefreshTokenFunction: KotlinSuspendFunction1 {
+                func invoke(p1: Any?, completionHandler: @escaping (Any?, Error?) -> Void) {
+                    guard let oldToken = p1 as? String else {
+                        return
+                    }
+                    
+                    // ...
+                    // ...
+                    let newToken: String? = "..."// Long-running operation ~ Fetch New JWT Token
+                    let error: Error? = nil
+                    completionHandler(newToken, error)
                 }
+                
+            }
+            let refreshTokenFunction = OnJWTRefreshTokenFunction()
+            let myJwtProvider = JWTProvider(
+                token: "...",  // Developer may immediately provide a token on init
+                tokenRefreshAction: refreshTokenFunction
             )
             
             // Set custom JWTProvider
-            SportsTalk247.setJWTProvider(
+            SportsTalk247.shared.setJWTProvider(
                 config = config,
                 provider = myJwtProvider
             )
@@ -312,7 +328,7 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
                 )
             )
             
-            let observeHandle = Task.detached {
+            let observeHandle = Task {
                 // Create an Async Stream to observe token changes
                 let stream = asyncStream(
                     // This is generated swift async function of `JwtProvider.observe()` that returns a stream. 
