@@ -143,7 +143,7 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
             
             let handle = Task {
                 do {
-                    let createdUser = try await userClient.createOrUpdateUserAsync(
+                    let createdUser = try await userClient.createOrUpdateUser(
                         request: CreateUpdateUserRequest(
                             userid: "023976080242ac120002",
                             handle: "sample_handle_123",
