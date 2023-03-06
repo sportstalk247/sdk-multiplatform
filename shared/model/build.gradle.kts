@@ -73,3 +73,6 @@ android {
 //        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 }
+
+// Disable `:shared:model` from being published independently
+tasks.withType<PublishToMavenRepository>().configureEach { enabled = false }
