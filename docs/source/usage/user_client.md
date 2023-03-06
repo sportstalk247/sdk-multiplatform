@@ -14,7 +14,7 @@
 
     .. code-tab:: swift iOS
         
-        let userClient = SportsTalk247.UserClient(
+        let userClient = SportsTalk247.shared.UserClient(
            config: ClientConfig(
               appId: "c84cb9c852932a6b0411e75e", // This is just a sample app id
               apiToken: "5MGq3XbsspBEQf3kj154_OSQV-jygEKwHJyuHjuAeWHA", // This is just a sample token
@@ -73,22 +73,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let createdUser = try await asyncFunction(
-                    for: userClient.createOrUpdateUserAsync(
-                            request: CreateUpdateUserRequest(
-                                        userid: "023976080242ac120002",
-                                        handle: "sample_handle_123",
-                                        displayname: "Test Name 123", // OPTIONAL
-                                        pictureurl: "<Image URL>", // OPTIONAL
-                                        profileurl: "<Image URL>" // OPTIONAL
-                            )
-                        )
+                let createdUser = try await userClient.createOrUpdateUser(
+                    request: CreateUpdateUserRequest(
+                                userid: "023976080242ac120002",
+                                handle: "sample_handle_123",
+                                displayname: "Test Name 123", // OPTIONAL
+                                pictureurl: "<Image URL>", // OPTIONAL
+                                profileurl: "<Image URL>" // OPTIONAL
+                    )
                 )
                 // Resolve `createdUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -138,16 +134,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let userDetails = try await asyncFunction(
-                    for: userClient.getUserDetailsAsync(
-                            userid: "023976080242ac120002"
-                        )
+                let userDetails = try await userClient.getUserDetails(
+                    userid: "023976080242ac120002"
                 )
                 // Resolve `userDetails` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -199,17 +191,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listUsers = try await asyncFunction(
-                    for: userClient.listUsersAsync(
-                        limit: KotlinInt(int: 10), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
-                    )
+                let listUsers = try await userClient.listUsers(
+                    limit: KotlinInt(int: 10), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
                 )
                 // Resolve `listUsers` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -264,18 +252,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let bannedUser = try await asyncFunction(
-                    for: userClient.setBanStatusAsync(
-                        userid: "023976080242ac120002",
-                        applyeffect: true, // If set to true, attempt to ban the user. If set to false, attempt to remove the ban from user
-                        expireseconds: KotlinLong(integerLiteral: 3600) // [Optional] if not specified, the ban is permanent until user is restored. If specified, then the ban will be temporarily applied for the specified number of seconds.
-                    )
+                let bannedUser = try await userClient.setBanStatus(
+                    userid: "023976080242ac120002",
+                    applyeffect: true, // If set to true, attempt to ban the user. If set to false, attempt to remove the ban from user
+                    expireseconds: KotlinLong(integerLiteral: 3600) // [Optional] if not specified, the ban is permanent until user is restored. If specified, then the ban will be temporarily applied for the specified number of seconds.
                 )
                 // Resolve `bannedUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -326,17 +310,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let response = try await asyncFunction(
-                    for: userClient.globallyPurgeUserContentAsync(
-                        userid; "023976080242ac120002", // ID of the User who's content is about to be purged
-                        byuserid: "1234567890" // ID of the User who is about to perform the purge action(requires admin privileges)
-                    )
+                let response = try await userClient.globallyPurgeUserContent(
+                    userid; "023976080242ac120002", // ID of the User who's content is about to be purged
+                    byuserid: "1234567890" // ID of the User who is about to perform the purge action(requires admin privileges)
                 )
                 // Resolve `response` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -391,18 +371,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let mutedUser = try await asyncFunction(
-                    for: userClient.muteUserAsync(
-                        userId: "023976080242ac120002",
-                        applyeffect: true, // If set to true, user will be set to muted state. Otherwise, will be set to non-banned state.
-                        expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of mute in seconds. If specified, the mute will be lifted when this time is reached. If not specified, mute effect remains until explicitly lifted. Maximum seconds is a double byte value.
-                    )
+                let mutedUser = try await userClient.muteUser(
+                    userId: "023976080242ac120002",
+                    applyeffect: true, // If set to true, user will be set to muted state. Otherwise, will be set to non-banned state.
+                    expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of mute in seconds. If specified, the mute will be lifted when this time is reached. If not specified, mute effect remains until explicitly lifted. Maximum seconds is a double byte value.
                 )
                 // Resolve `mutedUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -457,18 +433,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let shadowBannedUser = try await asyncFunction(
-                    for: userClient.setShadowBanStatusAsync(
-                        userId: "023976080242ac120002",
-                        applyeffect: true, // If set to true, user can send messages into a chat room, however those messages are flagged as shadow banned.
-                        expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of shadowban value in seconds. If specified, the shadow ban will be lifted when this time is reached. If not specified, shadowban remains until explicitly lifted. Maximum seconds is a double byte value.
-                    )
+                let shadowBannedUser = try await userClient.setShadowBanStatus(
+                    userId: "023976080242ac120002",
+                    applyeffect: true, // If set to true, user can send messages into a chat room, however those messages are flagged as shadow banned.
+                    expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of shadowban value in seconds. If specified, the shadow ban will be lifted when this time is reached. If not specified, shadowban remains until explicitly lifted. Maximum seconds is a double byte value.
                 )
                 // Resolve `shadowBannedUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -561,19 +533,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
         
         // Search by Handle
         let handle1 = Task {
             do {
-                let searchedUsersByHandle = try await asyncFunction(
-                    for: userClient.searchUsersAsync(
-                        handle: "testhandle1",
-                        limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
-                        cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
-                    )
+                let searchedUsersByHandle = try await userClient.searchUsers(
+                    handle: "testhandle1",
+                    limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
+                    cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
                 )
                 // Resolve `searchedUsersByHandle` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -586,12 +555,10 @@ Below is a code sample on how to use this SDK feature:
         // Search by Name
         let handle2 = Task {
             do {
-                let searchedUsersByName = try await asyncFunction(
-                    for: userClient.searchUsersAsync(
-                        name: "Josie Rizal",
-                        limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
-                        cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
-                    )
+                let searchedUsersByName = try await userClient.searchUsers(
+                    name: "Josie Rizal",
+                    limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
+                    cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
                 )
                 // Resolve `searchedUsersByName` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -604,12 +571,10 @@ Below is a code sample on how to use this SDK feature:
         // Search by User ID
         let handle3 = Task {
             do {
-                let searchedUsersByUserId = try await asyncFunction(
-                    for: userClient.searchUsersAsync(
-                        userid: "userid_georgew",
-                        limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
-                        cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
-                    )
+                let searchedUsersByUserId = try await userClient.searchUsers(
+                    userid: "userid_georgew",
+                    limit: KotlinInt(int: 20), // Defaults to 200 on backend API server
+                    cursor: nil   // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user(s).
                 )
                 // Resolve `searchedUsersByUserId` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -658,16 +623,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deletedUser = try await asyncFunction(
-                    for: userClient.deleteUserAsync(
-                        userid: "023976080242ac120002"
-                    )
+                let deletedUser = try await userClient.deleteUser(
+                    userid: "023976080242ac120002"
                 )
                 // Resolve `deletedUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -717,16 +678,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reportedUser = try await asyncFunction(
-                    for: userClient.reportUserAsync(
-                        userid: "023976080242ac120002"
-                    )
+                let reportedUser = try await userClient.reportUser(
+                    userid: "023976080242ac120002"
                 )
                 // Resolve `reportedUser` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -788,22 +745,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listUserNotifications = try await asyncFunction(
-                    for: userClient.listUserNotificationsAsync(
-                        userid: "023976080242ac120002",
-                        limit: KotlinInt(int: 10), // Can be any arbitrary number
-                        filterNotificationTypes: [UserNotification.Type.CHAT_REPLY, UserNotification.Type.CHAT_QUOTE], // [OPTIONAL] List could also have either `CHAT_REPLY` or `CHAT_QUOTE` ONLY
-                        cursor: nil,
-                        includeread: false, // If [true], will only return a list of user notifications whose value `isread = true`. Otherwise, returns a list of user notifications whose value `isread = false`.
-                        filterChatRoomId: "080001297623242ac002", // ID of an existing chat room
-                        filterChatRoomCustomId: nil   // OR you may also use an existing chat room's custom ID
-                    )
+                let listUserNotifications = try await userClient.listUserNotifications(
+                    userid: "023976080242ac120002",
+                    limit: KotlinInt(int: 10), // Can be any arbitrary number
+                    filterNotificationTypes: [UserNotification.Type.CHAT_REPLY, UserNotification.Type.CHAT_QUOTE], // [OPTIONAL] List could also have either `CHAT_REPLY` or `CHAT_QUOTE` ONLY
+                    cursor: nil,
+                    includeread: false, // If [true], will only return a list of user notifications whose value `isread = true`. Otherwise, returns a list of user notifications whose value `isread = false`.
+                    filterChatRoomId: "080001297623242ac002", // ID of an existing chat room
+                    filterChatRoomCustomId: nil   // OR you may also use an existing chat room's custom ID
                 )
                 // Resolve `listUserNotifications` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -857,18 +810,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updatedNotification = try await asyncFunction(
-                    for: userClient.setUserNotificationAsReadAsync(
-                        userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
-                        notificationId: "070200623280c142a902",    // The ID of notifications about to update
-                        read: true
-                    )
+                let updatedNotification = try await userClient.setUserNotificationAsRead(
+                    userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
+                    notificationId: "070200623280c142a902",    // The ID of notifications about to update
+                    read: true
                 )
                 // Resolve `updatedNotification` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -922,18 +871,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updatedNotification = try await asyncFunction(
-                    for: userClient.setUserNotificationAsReadByChatEventAsync(
-                        userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
-                        chatEventId: "070200623280c142a902",    // The ID of chatevent for which the notification was generated from, about to update
-                        read: true
-                    )
+                let updatedNotification = try await userClient.setUserNotificationAsReadByChatEvent(
+                    userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
+                    chatEventId: "070200623280c142a902",    // The ID of chatevent for which the notification was generated from, about to update
+                    read: true
                 )
                 // Resolve `updatedNotification` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -985,17 +930,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deletedNotification = try await asyncFunction(
-                    for: userClient.deleteUserNotificationAsync(
-                        userid: "023976080242ac120002",    // The ID of user who owns the notification about to delete
-                        notificationId: "070200623280c142a902"    // The ID of notifications about to delete
-                    )
+                let deletedNotification = try await userClient.deleteUserNotification(
+                    userid: "023976080242ac120002",    // The ID of user who owns the notification about to delete
+                    notificationId: "070200623280c142a902"    // The ID of notifications about to delete
                 )
                 // Resolve `deletedNotification` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1047,17 +988,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deletedNotification = try await asyncFunction(
-                    for: userClient.deleteUserNotificationAsync(
-                        userid: "023976080242ac120002",    // The ID of user who owns the notification about to delete
-                        notificationId: "070200623280c142a902"    // The ID of notifications about to delete
-                    )
+                let deletedNotification = try await userClient.deleteUserNotification(
+                    userid: "023976080242ac120002",    // The ID of user who owns the notification about to delete
+                    notificationId: "070200623280c142a902"    // The ID of notifications about to delete
                 )
                 // Resolve `deletedNotification` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1107,17 +1044,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                try await asyncFunction(
-                    for: userClient.markAllUserNotificationsAsReadAsync(
-                        userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
-                        delete: true
-                    )
+                try await userClient.markAllUserNotificationsAsRead(
+                    userid: "023976080242ac120002",    // The ID of user who owns the notification about to update
+                    delete: true
                 )
                 // Resolve from HERE onwards(ex. update UI displaying the response data)...
             } catch {

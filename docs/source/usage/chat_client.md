@@ -14,7 +14,7 @@
 
     .. code-tab:: swift iOS
         
-        let chatClient = SportsTalk247.ChatClient(
+        let chatClient = SportsTalk247.shared.ChatClient(
            config: ClientConfig(
               appId: "c84cb9c852932a6b0411e75e", // This is just a sample app id
               apiToken: "5MGq3XbsspBEQf3kj154_OSQV-jygEKwHJyuHjuAeWHA", // This is just a sample token
@@ -166,26 +166,22 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let createdRoom = try await asyncFunction(
-                    for: chatClient.createRoomAsync(
-                        request: CreateChatRoomRequest(
-                            name: "Test Chat Room 1",
-                            customid: "test-room-1",
-                            description: "This is a test chat room 1.",
-                            moderation: "post",
-                            enableactions: true,
-                            enableenterandexit: true,
-                            enableprofanityfilter: false,
-                            delaymessageseconds: KotlinLong(integerLiteral: 0),
-                            roomisopen: true,
-                            maxreports: KotlinInt(int: 10)
-                        )
+                let createdRoom = try await chatClient.createRoom(
+                    request: CreateChatRoomRequest(
+                        name: "Test Chat Room 1",
+                        customid: "test-room-1",
+                        description: "This is a test chat room 1.",
+                        moderation: "post",
+                        enableactions: true,
+                        enableenterandexit: true,
+                        enableprofanityfilter: false,
+                        delaymessageseconds: KotlinLong(integerLiteral: 0),
+                        roomisopen: true,
+                        maxreports: KotlinInt(int: 10)
                     )
                 )
                 // Resolve `createdRoom` from HERE onwards(ex. update UI displaying the response data)...
@@ -236,16 +232,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let chatRoom = try await asyncFunction(
-                    for: chatClient.getRoomDetailsAsync(
-                        chatRoomId: "080001297623242ac002"
-                    )
+                let chatRoom = try await chatClient.getRoomDetails(
+                    chatRoomId: "080001297623242ac002"
                 )
                 // Resolve `chatRoom` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -307,22 +299,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let chatRoomExtendedDetails = try await asyncFunction(
-                    for: chatClient.getRoomDetailsExtendedBatchAsync(
-                        entityTypes: [
-                            RoomDetailEntityType.ROOM,
-                            RoomDetailEntityType.NUM_PARTICIPANTS,
-                            RoomDetailEntityType.LAST_MESSAGE_TIME
-                        ],  // Must have atleast 1 of the RoomDetailEntityType enum constant.
-                        roomIds: ["080001297623242ac002", "702242ac000086230129"],  // Must have atleast 1 entry for roomIds or customIds combined.
-                        customIds = ["test-custom-room-id-01", "test-custom-room-id-02"]
-                    )
+                let chatRoomExtendedDetails = try await chatClient.getRoomDetailsExtendedBatch(
+                    entityTypes: [
+                        RoomDetailEntityType.ROOM,
+                        RoomDetailEntityType.NUM_PARTICIPANTS,
+                        RoomDetailEntityType.LAST_MESSAGE_TIME
+                    ],  // Must have atleast 1 of the RoomDetailEntityType enum constant.
+                    roomIds: ["080001297623242ac002", "702242ac000086230129"],  // Must have atleast 1 entry for roomIds or customIds combined.
+                    customIds = ["test-custom-room-id-01", "test-custom-room-id-02"]
                 )
                 // Resolve `chatRoomExtendedDetails` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -372,16 +360,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let chatRoom = try await asyncFunction(
-                    for: chatClient.getRoomDetailsByCustomIdAsync(
-                        chatRoomCustomId: "custom-id-0239760802"
-                    )
+                let chatRoom = try await chatClient.getRoomDetailsByCustomId(
+                    chatRoomCustomId: "custom-id-0239760802"
                 )
                 // Resolve `chatRoom` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -433,17 +417,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listRooms = try await asyncFunction(
-                    for: chatClient.listRoomsAsync(
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chat room(s).
-                    )
+                let listRooms = try await chatClient.listRooms(
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chat room(s).
                 )
                 // Resolve `listRooms` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -508,18 +488,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let joinRoomResponse = try await asyncFunction(
-                    for: chatClient.joinRoomAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: JoinChatRoomRequest(
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let joinRoomResponse = try await chatClient.joinRoom(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: JoinChatRoomRequest(
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `joinRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -587,18 +563,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let joinRoomResponse = try await asyncFunction(
-                    for: chatClient.joinRoomByCustomIdAsync(
-                        chatRoomCustomId: "custom-room-id-12976",    // Custom ID of an existing chat room
-                        request: JoinChatRoomRequest(
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let joinRoomResponse = try await chatClient.joinRoomByCustomId(
+                    chatRoomCustomId: "custom-room-id-12976",    // Custom ID of an existing chat room
+                    request: JoinChatRoomRequest(
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `joinRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -657,18 +629,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listRoomParticipants = try await asyncFunction(
-                    for: chatClient.listRoomParticipantsAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chatroom participant(s).
-                    )
+                let listRoomParticipants = try await chatClient.listRoomParticipants(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chatroom participant(s).
                 )
                 // Resolve `listRoomParticipants` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -726,18 +694,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listUserSubscribedRooms = try await asyncFunction(
-                    for: chatClient.listUserSubscribedRoomsAsync(
-                        userid: "023976080242ac120002" // ID of an existing user
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chatroom participant(s).
-                    )
+                let listUserSubscribedRooms = try await chatClient.listUserSubscribedRooms(
+                    userid: "023976080242ac120002" // ID of an existing user
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chatroom participant(s).
                 )
                 // Resolve `listUserSubscribedRooms` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -803,23 +767,19 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updatedRoom = try await asyncFunction(
-                    for: chatClient.updateRoomAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: UpdateChatRoomRequest(
-                            name: "Test Chatroom 112-updated",
-                            customid: "custom-room-id1-updated",
-                            description: "Description is updated",
-                            enableactions: true,
-                            enableenterandexit: true,
-                            maxreports: KotlinLong(integerLiteral: 30)
-                        )
+                let updatedRoom = try await chatClient.updateRoom(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: UpdateChatRoomRequest(
+                        name: "Test Chatroom 112-updated",
+                        customid: "custom-room-id1-updated",
+                        description: "Description is updated",
+                        enableactions: true,
+                        enableenterandexit: true,
+                        maxreports: KotlinLong(integerLiteral: 30)
                     )
                 )
                 // Resolve `updatedRoom` from HERE onwards(ex. update UI displaying the response data)...
@@ -1031,19 +991,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let executeChatCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ExecuteChatCommandRequest(
-                            command: "Hello World!",
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let executeChatCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ExecuteChatCommandRequest(
+                        command: "Hello World!",
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `executeChatCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1106,20 +1062,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
         import KMPNativeCoroutinesAsync
         
         let handle = Task {
             do {
-                let executeChatCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ExecuteChatCommandRequest(
-                            command: "This is a test annoncement!",
-                            userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                            eventtype: EventType.ANNOUNCEMENT // "announcement"
-                        )
+                let executeChatCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ExecuteChatCommandRequest(
+                        command: "This is a test annoncement!",
+                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                        eventtype: EventType.ANNOUNCEMENT // "announcement"
                     )
                 )
                 // Resolve `executeChatCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1180,19 +1134,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let executeChatCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ExecuteChatCommandRequest(
-                            command: "/high5 georgew",
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let executeChatCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ExecuteChatCommandRequest(
+                        command: "/high5 georgew",
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `executeChatCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1253,20 +1203,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let sendThreadedReplyResponse = try await asyncFunction(
-                    for: chatClient.sendThreadedReplyAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        replyTo: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
-                        request: SendThreadedReplyRequest(
-                            body: "This is Jessy, replying to your greetings yow!!!",
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let sendThreadedReplyResponse = try await chatClient.sendThreadedReply(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    replyTo: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
+                    request: SendThreadedReplyRequest(
+                        body: "This is Jessy, replying to your greetings yow!!!",
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `sendThreadedReplyResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1327,20 +1273,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let sendQuotedReplyResponse = try await asyncFunction(
-                    for: chatClient.sendQuotedReplyAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        replyTo: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
-                        request: SendQuotedReplyRequest(
-                            body: "This is Jessy, quoting your greetings yow!!!",
-                            userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        )
+                let sendQuotedReplyResponse = try await chatClient.sendQuotedReply(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    replyTo: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
+                    request: SendQuotedReplyRequest(
+                        body: "This is Jessy, quoting your greetings yow!!!",
+                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `sendQuotedReplyResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1404,21 +1346,17 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reactToAMsgResponse = try await asyncFunction(
-                    for: chatClient.reactToEventAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
-                        request: ReactToAMessageRequest(
-                            userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                            reaction: "like",
-                            reacted: true
-                        )
+                let reactToAMsgResponse = try await chatClient.reactToEvent(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
+                    request: ReactToAMessageRequest(
+                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                        reaction: "like",
+                        reacted: true
                     )
                 )
                 // Resolve `reactToAMsgResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1481,20 +1419,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reportMsgResponse = try await asyncFunction(
-                    for: chatClient.reportMessageAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
-                        request: ReportMessageRequest(
-                            reporttype: ReportType.ABUSE,  // "abuse"
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let reportMsgResponse = try await chatClient.reportMessage(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
+                    request: ReportMessageRequest(
+                        reporttype: ReportType.ABUSE,  // "abuse"
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `reportMsgResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1555,19 +1489,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let executeChatCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ExecuteChatCommandRequest(
-                            command: "*help*",
-                            userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        )
+                let executeChatCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ExecuteChatCommandRequest(
+                        command: "*help*",
+                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `executeChatCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -1679,11 +1609,13 @@ Below is a code sample on how to use this SDK feature:
         
         let handle = Task {
             do {
-                let allEventUpdatesStream = asyncStream(
+                // Swift AsyncStream Wrapper for KMPNativeCoroutine
+                let allEventUpdatesStream = asyncSequence(
                     // User must first Join Chat Room
                     // Now that the test user has joined the room, setup reactive subscription to event updates
                     // Below returns a Flowable<List<ChatEvent>>
-                    for: chatClient.allEventUpdatesAsync(
+                    for: ChatClientKt.allEventUpdates(
+                        chatClient, // receiver
                         chatRoomId: chatRoomId,
                         frequency: KotlinLong(integerLiteral: 1000), /* Polling Frequency. Defaults to 500 milliseconds if not explicitly provided */,
                         limit: Int?: nil, // (optional) Number of events to return for each poll. Default is 100, maximum is 500.
@@ -1803,19 +1735,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listUserMessages = try await asyncFunction(
-                    for: chatClient.listMessagesByUserAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user message(s).
-                    )
+                let listUserMessages = try await chatClient.listMessagesByUser(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of user message(s).
                 )
                 // Resolve `listUserMessages` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1873,18 +1801,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listEventsHistory = try await asyncFunction(
-                    for: chatClient.listEventsHistoryAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of events.
-                    )
+                let listEventsHistory = try await chatClient.listEventsHistory(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of events.
                 )
                 // Resolve `listEventsHistory` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1945,19 +1869,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listEventsByType = try await asyncFunction(
-                    for: chatClient.listEventsByTypeAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventType: EventType.ANNOUNCEMENT, // "announcement"
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor = nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of events.
-                    )
+                let listEventsByType = try await chatClient.listEventsByType(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventType: EventType.ANNOUNCEMENT, // "announcement"
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor = nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of events.
                 )
                 // Resolve `listEventsByType` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2023,19 +1943,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listEventsByTimestamp = try await asyncFunction(
-                    for: chatClient.listEventsByTimestampAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        timestamp: 637464818548698844, // Timestamp criteria
-                        limitolder: 5, 
-                        limitnewer: 5
-                    )
+                let listEventsByTimestamp = try await chatClient.listEventsByTimestamp(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    timestamp: 637464818548698844, // Timestamp criteria
+                    limitolder: 5, 
+                    limitnewer: 5
                 )
                 // Resolve `listEventsByTimestamp` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2082,17 +1998,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let messageIsReported = try await asyncFunction(
-                    for: chatClient.messageIsReportedAsync(
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        userid: "023976080242ac120002" // ID of an existing user from the chat room
-                    )
+                let messageIsReported = try await chatClient.messageIsReported(
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    userid: "023976080242ac120002" // ID of an existing user from the chat room
                 )
                 // Resolve `messageIsReported` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2140,18 +2052,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let messageIsReactedTo = try await asyncFunction(
-                    for: chatClient.messageIsReactedToAsync(
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        userid: "023976080242ac120002", // ID of an existing user from the chat room
-                        reaction: ReactionType.LIKE // "like" ~ One of the ReactionType string constants
-                    )
+                let messageIsReactedTo = try await chatClient.messageIsReactedTo(
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    userid: "023976080242ac120002", // ID of an existing user from the chat room
+                    reaction: ReactionType.LIKE // "like" ~ One of the ReactionType string constants
                 )
                 // Resolve `messageIsReactedTo` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2211,18 +2119,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let messageIsReactedTo = try await asyncFunction(
-                    for: chatClient.messageIsReactedToAsync(
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        userid: "023976080242ac120002", // ID of an existing user from the chat room
-                        reaction: ReactionType.LIKE // "like" ~ One of the ReactionType string constants
-                    )
+                let messageIsReactedTo = try await chatClient.messageIsReactedTo(
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    userid: "023976080242ac120002", // ID of an existing user from the chat room
+                    reaction: ReactionType.LIKE // "like" ~ One of the ReactionType string constants
                 )
                 // Resolve `messageIsReactedTo` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2274,17 +2178,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let getEventResponse = try await asyncFunction(
-                    for: chatClient.getEventByIdAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "7620812242ac09300002"    // ID of an existing event from the chat room
-                    )
+                let getEventResponse = try await chatClient.getEventById(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "7620812242ac09300002"    // ID of an existing event from the chat room
                 )
                 // Resolve `getEventResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2348,19 +2248,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reportUserInRoomResponse = try await asyncFunction(
-                    for: chatClient.reportUserInRoomAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ReportUserInRoomRequest(
-                            userid: "023976080242ac120002", // ID of an existing user from the chat room
-                            reporttype: ReportType.ABUSE   // either ReportType.ABUSE("abuse") or ReportType.SPAM("spam")
-                        )
+                let reportUserInRoomResponse = try await chatClient.reportUserInRoom(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ReportUserInRoomRequest(
+                        userid: "023976080242ac120002", // ID of an existing user from the chat room
+                        reporttype: ReportType.ABUSE   // either ReportType.ABUSE("abuse") or ReportType.SPAM("spam")
                     )
                 )
                 // Resolve `reportUserInRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2419,19 +2315,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let purgeCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: ExecuteChatCommandRequest(
-                            command: "*purge @nicoleWd",    // Assuming user "@nicoleWd" exists
-                            userid: "admin" // Admin User ID attempting to perform purge action
-                        )
+                let purgeCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: ExecuteChatCommandRequest(
+                        command: "*purge @nicoleWd",    // Assuming user "@nicoleWd" exists
+                        userid: "admin" // Admin User ID attempting to perform purge action
                     )
                 )
                 // Resolve `purgeCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2492,19 +2384,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let shadowBanUserResponse = try await asyncFunction(
-                    for: chatClient.shadowBanUserAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        applyeffect: true, // If set to true, user will be set to banned state. Otherwise, will be set to non-banned state.
-                        expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of shadowban value in seconds. If specified, the shadow ban will be lifted when this time is reached. If not specified, shadowban remains until explicitly lifted. Maximum seconds is a double byte value.
-                    )
+                let shadowBanUserResponse = try await chatClient.shadowBanUser(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                    applyeffect: true, // If set to true, user will be set to banned state. Otherwise, will be set to non-banned state.
+                    expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of shadowban value in seconds. If specified, the shadow ban will be lifted when this time is reached. If not specified, shadowban remains until explicitly lifted. Maximum seconds is a double byte value.
                 )
                 // Resolve `shadowBanUserResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2564,19 +2452,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let muteUserResponse = try await asyncFunction(
-                    for: chatClient.muteUserAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        applyeffect: true, // If set to true, user will be set to muted state. Otherwise, will be set to non-banned state.
-                        expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of mute in seconds. If specified, the mute will be lifted when this time is reached. If not specified, mute effect remains until explicitly lifted. Maximum seconds is a double byte value.
-                    )
+                let muteUserResponse = try await chatClient.muteUser(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                    applyeffect: true, // If set to true, user will be set to muted state. Otherwise, will be set to non-banned state.
+                    expireseconds: KotlinLong(integerLiteral: 3600) // [OPTIONAL]: Duration of mute in seconds. If specified, the mute will be lifted when this time is reached. If not specified, mute effect remains until explicitly lifted. Maximum seconds is a double byte value.
                 )
                 // Resolve `muteUserResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -2642,21 +2526,17 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let bounceUserResponse = try await asyncFunction(
-                    for: chatClient.bounceUserAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        // Assuming user "@nicoleWd" exists
-                        request: BounceUserRequest(
-                            userid: "023976080242ac120002", // ID of an existing user "@nicoleWd" from this chatroom
-                            bounce: true,
-                            announcement: "@nicoleWd has been banned."
-                        )
+                let bounceUserResponse = try await chatClient.bounceUser(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    // Assuming user "@nicoleWd" exists
+                    request: BounceUserRequest(
+                        userid: "023976080242ac120002", // ID of an existing user "@nicoleWd" from this chatroom
+                        bounce: true,
+                        announcement: "@nicoleWd has been banned."
                     )
                 )
                 // Resolve `bounceUserResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2741,20 +2621,17 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
         
         // Search using User ID
         let handle1 = Task {
             do {
-                let searchEventHistoryByUserIdResponse = try await asyncFunction(
-                    for: chatClient.searchEventHistoryAsync(
-                        request: SearchEventHistoryRequest(
-                            fromuserid: "023976080242ac120002", // ID of an existing user
-                            limit: KotlinInt(int: 10),
-                            types: [EventType.SPEECH] // Any EventType constants
-                        )
+                let searchEventHistoryByUserIdResponse = try await chatClient.searchEventHistory(
+                    request: SearchEventHistoryRequest(
+                        fromuserid: "023976080242ac120002", // ID of an existing user
+                        limit: KotlinInt(int: 10),
+                        types: [EventType.SPEECH] // Any EventType constants
                     )
                 )
                 // Resolve `searchEventHistoryByUserIdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2769,13 +2646,11 @@ Below is a code sample on how to use this SDK feature:
         // Search using User handle
         let handle2 = Task {
             do {
-                let searchEventHistoryByUserHandleResponse = try await asyncFunction(
-                    for: chatClient.searchEventHistoryAsync(
-                        request: SearchEventHistoryRequest(
-                            fromhandle: "@nicoleWD", // Handle of an existing user
-                            limit: KotlinInt(int: 10),
-                            types: [EventType.SPEECH] // Any EventType constants
-                        )
+                let searchEventHistoryByUserHandleResponse = try await chatClient.searchEventHistory(
+                    request: SearchEventHistoryRequest(
+                        fromhandle: "@nicoleWD", // Handle of an existing user
+                        limit: KotlinInt(int: 10),
+                        types: [EventType.SPEECH] // Any EventType constants
                     )
                 )
                 // Resolve `searchEventHistoryByUserHandleResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2848,25 +2723,21 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updateChatMessageResponse = try await asyncFunction(
-                    for: chatClient.updateChatMessageAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        request: UpdateChatMessageRequest(
-                            userid: "023976080242ac120002", // ID of an existing user from this chat room
-                            body: "[UPDATED] from the original message",
-                            customid: nil, // [OPTIONAL]
-                            custompayload: nil, // [OPTIONAL]
-                            customfield1: nil, // [OPTIONAL]
-                            customfield2: nil, // [OPTIONAL]
-                            customtags: nil // [OPTIONAL]
-                        )
+                let updateChatMessageResponse = try await chatClient.updateChatMessage(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    request: UpdateChatMessageRequest(
+                        userid: "023976080242ac120002", // ID of an existing user from this chat room
+                        body: "[UPDATED] from the original message",
+                        customid: nil, // [OPTIONAL]
+                        custompayload: nil, // [OPTIONAL]
+                        customfield1: nil, // [OPTIONAL]
+                        customfield2: nil, // [OPTIONAL]
+                        customtags: nil // [OPTIONAL]
                     )
                 )
                 // Resolve `updateChatMessageResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -2933,20 +2804,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let logicalDeleteResponse = try await asyncFunction(
-                    for: chatClient.flagEventLogicallyDeletedAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        userid: "023976080242ac120002", // ID of an existing user from this chatroom
-                        deleted: true,
-                        permanentifnoreplies: true
-                    )
+                let logicalDeleteResponse = try await chatClient.flagEventLogicallyDeleted(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    userid: "023976080242ac120002", // ID of an existing user from this chatroom
+                    deleted: true,
+                    permanentifnoreplies: true
                 )
                 // Resolve `logicalDeleteResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -3000,18 +2867,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deleteEventResponse = try await asyncFunction(
-                    for: chatClient.permanentlyDeleteEventAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
-                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                    )
+                let deleteEventResponse = try await chatClient.permanentlyDeleteEvent(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    eventId: "7620812242ac09300002",    // ID of an existing event from the chat room
+                    userid: "023976080242ac120002" // ID of an existing user from this chatroom
                 )
                 // Resolve `deleteEventResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -3071,20 +2934,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deleteAllEventsCmdResponse = try await asyncFunction(
-                    for: chatClient.executeChatCommandAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        // Assuming ADMIN password "testpassword123"
-                        request: ExecuteChatCommandRequest(
-                            command: "*deleteallevents testpassword123",
-                            userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                        )
+                let deleteAllEventsCmdResponse = try await chatClient.executeChatCommand(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    // Assuming ADMIN password "testpassword123"
+                    request: ExecuteChatCommandRequest(
+                        command: "*deleteallevents testpassword123",
+                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
                     )
                 )
                 // Resolve `deleteAllEventsCmdResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -3159,27 +3018,23 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updatedRoomResponse = try await asyncFunction(
-                    for: chatClient.updateRoomAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        request: UpdateChatRoomRequest(
-                                name: "Test Chat Room 1 - UPDATED",
-                                customid: "test-room-1-updated",
-                                description: "[UPDATED] This is a test chat room 1.",
-                                moderation: "post",
-                                enableactions: false,
-                                enableenterandexit: false,
-                                enableprofanityfilter: true,
-                                delaymessageseconds: KotlinLong(integerLiteral: 10),
-                                roomisopen: false,
-                                maxreports: KotlinInt(int: 30)
-                        )
+                let updatedRoomResponse = try await chatClient.updateRoom(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    request: UpdateChatRoomRequest(
+                            name: "Test Chat Room 1 - UPDATED",
+                            customid: "test-room-1-updated",
+                            description: "[UPDATED] This is a test chat room 1.",
+                            moderation: "post",
+                            enableactions: false,
+                            enableenterandexit: false,
+                            enableprofanityfilter: true,
+                            delaymessageseconds: KotlinLong(integerLiteral: 10),
+                            roomisopen: false,
+                            maxreports: KotlinInt(int: 30)
                     )
                 )
                 // Resolve `updatedRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
@@ -3232,17 +3087,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let exitRoomResponse = try await asyncFunction(
-                    for: chatClient.exitRoomAsync(
-                        chatRoomId: "080001297623242ac002",    // ID of an existing chat room
-                        userid: "023976080242ac120002" // ID of an existing user from this chatroom
-                    )
+                let exitRoomResponse = try await chatClient.exitRoom(
+                    chatRoomId: "080001297623242ac002",    // ID of an existing chat room
+                    userid: "023976080242ac120002" // ID of an existing user from this chatroom
                 )
                 // Resolve `exitRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -3292,16 +3143,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deleteRoomResponse = try await asyncFunction(
-                    for: chatClient.deleteRoomAsync(
-                        chatRoomId: "080001297623242ac002"    // ID of an existing chat room
-                    )
+                let deleteRoomResponse = try await chatClient.deleteRoom(
+                    chatRoomId: "080001297623242ac002"    // ID of an existing chat room
                 )
                 // Resolve `deleteRoomResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -3355,18 +3202,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let listMessagesInModeration = try await asyncFunction(
-                    for: chatClient.listMessagesNeedingModerationAsync(
-                        roomId: "080001297623242ac002",    // ID of an existing chat room
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of messages from this chatroom.
-                    )
+                let listMessagesInModeration = try await chatClient.listMessagesNeedingModeration(
+                    roomId: "080001297623242ac002",    // ID of an existing chat room
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of messages from this chatroom.
                 )
                 // Resolve `listMessagesInModeration` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -3418,17 +3261,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let approveResponse = try await asyncFunction(
-                    for: chatClient.approveMessageAsync(
-                        eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
-                        approve: true
-                    )
+                let approveResponse = try await chatClient.approveMessage(
+                    eventId: "0976280012ac00023242",   // ID of an existing event from this chatroom, which you intend to reply to
+                    approve: true
                 )
                 // Resolve `approveResponse` from HERE onwards(ex. update UI displaying the response data)...
             } catch {

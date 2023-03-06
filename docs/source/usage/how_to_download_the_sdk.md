@@ -20,7 +20,7 @@ In order to use it in your application, just do the following:
         }
         
         // 2. Add the following lines in your module **build.gradle** file, under dependencies section
-        implementation 'com.gitlab.sportstalk247:sdk-kmm:shared:core:vX.Y.Z'
+        implementation 'com.gitlab.sportstalk247.sdk-kmm:core:vX.Y.Z'
 
     .. code-tab:: ruby iOS(Cocoapods)
 
@@ -30,6 +30,7 @@ In order to use it in your application, just do the following:
         # A library to use Kotlin Coroutines and Flow on Swift code in KMP apps.
         # - https://github.com/rickclephas/KMP-NativeCoroutines 
         pod 'KMPNativeCoroutinesAsync', '<version>'    # Swift 5.5 Async/Await implementation
+        pod 'KMPNativeCoroutinesCore', '<version>'    # Swift 5.5 Async/Await implementation
         
     .. code-tab:: swift iOS(SPM)
         

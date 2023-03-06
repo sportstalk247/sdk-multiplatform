@@ -104,7 +104,7 @@ android {
 // KMM Bridge Plugin Setup
 //
 kmmbridge {
-    // TODO:: Comment out for now...
+    // TODO:: Comment out for now... For the meantime, do local dev workflow.
     // mavenPublishArtifacts()
 
     // Preferred Publish Versioning
@@ -124,7 +124,7 @@ publishing {
             // https://docs.gitlab.com/ee/user/packages/gradle_repository/
             // url = uri("https://gitlab.example.com/api/v4/projects/<PROJECT_ID>/packages/maven")
             credentials(HttpHeaderCredentials::class) {
-                name = "REPLACE_WITH_TOKEN_NAME" // TODO::
+                name = "GitlabPackageRegistryToken"
                 value =
                     findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
             }

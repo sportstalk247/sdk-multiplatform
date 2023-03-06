@@ -14,7 +14,7 @@
 
     .. code-tab:: swift iOS
         
-        let commentClient = SportsTalk247.CommentClient(
+        let commentClient = SportsTalk247.shared.CommentClient(
            config: ClientConfig(
               appId: "c84cb9c852932a6b0411e75e", // This is just a sample app id
               apiToken: "5MGq3XbsspBEQf3kj154_OSQV-jygEKwHJyuHjuAeWHA", // This is just a sample token
@@ -78,23 +78,19 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let createdConversation = try await asyncFunction(
-                    for: commentClient.createOrUpdateConversationAsync(
-                        request: CreateOrUpdateConversationRequest(
-                            conversationid: "test-conversation-id123",
-                            property: "sportstalk247.com/apidemo",
-                            moderation: "post",
-                            enableprofanityfilter: false,
-                            title: "Sample Conversation",
-                            open: true,
-                            customid: "/articles/2020-03-01/article1/something-very-important-happened"
-                        )
+                let createdConversation = try await commentClient.createOrUpdateConversation(
+                    request: CreateOrUpdateConversationRequest(
+                        conversationid: "test-conversation-id123",
+                        property: "sportstalk247.com/apidemo",
+                        moderation: "post",
+                        enableprofanityfilter: false,
+                        title: "Sample Conversation",
+                        open: true,
+                        customid: "/articles/2020-03-01/article1/something-very-important-happened"
                     )
                 )
                 // Resolve `createdConversation` from HERE onwards(ex. update UI displaying the response data)...
@@ -145,16 +141,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let conversation = try await asyncFunction(
-                    for: commentClient.getConversationAsync(
-                        conversationid: "test-conversation-id123"
-                    )
+                let conversation = try await commentClient.getConversation(
+                    conversationid: "test-conversation-id123"
                 )
                 // Resolve `conversation` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -204,16 +196,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
         import KMPNativeCoroutinesAsync
         
         let handle = Task {
             do {
-                let conversation = try await asyncFunction(
-                    for: commentClient.getConversationByCustomIdAsync(
-                        customid: "/articles/2020-03-01/article1/something-very-important-happened"
-                    )
+                let conversation = try await commentClient.getConversationByCustomId(
+                    customid: "/articles/2020-03-01/article1/something-very-important-happened"
                 )
                 // Resolve `conversation` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -269,19 +259,15 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let conversations = try await asyncFunction(
-                    for: commentClient.listConversationsAsync(
-                        propertyid: "sportstalk247.com/apidemo", // [OPTIONAL] Any arbitrary String ID value
-                        limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
-                        cursor: nil, // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chat room(s).
-                        sort: SortType.Oldest // OPTIONAL: Apply sorting into list response
-                    )
+                let conversations = try await commentClient.listConversations(
+                    propertyid: "sportstalk247.com/apidemo", // [OPTIONAL] Any arbitrary String ID value
+                    limit: KotlinInt(int: 20), /* Defaults to 200 on backend API server */
+                    cursor: nil, // OPTIONAL: The cursor value from previous search attempt to indicate next paginated fetch. Null if fetching the first list of chat room(s).
+                    sort: SortType.Oldest // OPTIONAL: Apply sorting into list response
                 )
                 // Resolve `conversations` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -343,22 +329,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let batchOfConversations = try await asyncFunction(
-                    for: commentClient.batchGetConversationDetailsAsync(
-                        ids: ["test-conversation-id123", "test-conversation-id456", "test-conversation-id789"], // [OPTIONAL] List of conversation id(s)
-                        cid: [
-                            "/articles/2020-03-01/article1/something-very-important-happened",
-                            "/articles/2020-03-01/article1/something-not-so-important-happened",
-                            "/articles/2020-03-01/article1/something-okayish-happened"
-                        ], // [OPTIONAL] List of conversation customid(s)
-                        entities: ["reactions", "likecount"],    // [OPTIONAL] One of the string constants("reactions", "likecount", or "commentcount")
-                    )
+                let batchOfConversations = try await commentClient.batchGetConversationDetails(
+                    ids: ["test-conversation-id123", "test-conversation-id456", "test-conversation-id789"], // [OPTIONAL] List of conversation id(s)
+                    cid: [
+                        "/articles/2020-03-01/article1/something-very-important-happened",
+                        "/articles/2020-03-01/article1/something-not-so-important-happened",
+                        "/articles/2020-03-01/article1/something-okayish-happened"
+                    ], // [OPTIONAL] List of conversation customid(s)
+                    entities: ["reactions", "likecount"],    // [OPTIONAL] One of the string constants("reactions", "likecount", or "commentcount")
                 )
                 // Resolve `batchOfConversations` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -418,20 +400,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reactComment = try await asyncFunction(
-                    for: commentClient.reactToConversationTopicAsync(
-                        conversationid: "test-conversation-id123",
-                        request: ReactToConversationTopicRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to react on the comment
-                            reaction: ReactionType.LIKE,   // Any arbitratry reaction string constant(i.e. "like", etc.)
-                            reacted: true
-                        )
+                let reactComment = try await commentClient.reactToConversationTopic(
+                    conversationid: "test-conversation-id123",
+                    request: ReactToConversationTopicRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to react on the comment
+                        reaction: ReactionType.LIKE,   // Any arbitratry reaction string constant(i.e. "like", etc.)
+                        reacted: true
                     )
                 )
                 // Resolve `reactComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -500,24 +478,20 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let createdComment = try await asyncFunction(
-                    for: commentClient.createCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        request: CreateCommentRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to create the comment
-                            displayname: "HelloUser1", // [OPTIONAL] Override display name of the User who is attempting to create the comment
-                            body: "Hello, this is my comment!",
-                            customtype: nil,    // [OPTIONAL]
-                            customfield1: nil,    // [OPTIONAL]
-                            customfield2: nil,    // [OPTIONAL]
-                            custompayload: "{ num: 0 }"    // [OPTIONAL]
-                        )
+                let createdComment = try await commentClient.createComment(
+                    conversationid: "test-conversation-id123",
+                    request: CreateCommentRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to create the comment
+                        displayname: "HelloUser1", // [OPTIONAL] Override display name of the User who is attempting to create the comment
+                        body: "Hello, this is my comment!",
+                        customtype: nil,    // [OPTIONAL]
+                        customfield1: nil,    // [OPTIONAL]
+                        customfield2: nil,    // [OPTIONAL]
+                        custompayload: "{ num: 0 }"    // [OPTIONAL]
                     )
                 )
                 // Resolve `createdComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -588,25 +562,21 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let commentReply = try await asyncFunction(
-                    for: commentClient.replyToCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        replyto: "test-comment-id123", // ID of the comment you are about to reply to
-                        request: CreateCommentRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to create the comment
-                            displayname: "HelloUser1", // [OPTIONAL] Override display name of the User who is attempting to create the comment
-                            body: "Hello, this is my comment!",
-                            customtype: nil,    // [OPTIONAL]
-                            customfield1: nil,    // [OPTIONAL]
-                            customfield2: nil,    // [OPTIONAL]
-                            custompayload: "{ num: 0 }"    // [OPTIONAL]
-                        )
+                let commentReply = try await commentClient.replyToComment(
+                    conversationid: "test-conversation-id123",
+                    replyto: "test-comment-id123", // ID of the comment you are about to reply to
+                    request: CreateCommentRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to create the comment
+                        displayname: "HelloUser1", // [OPTIONAL] Override display name of the User who is attempting to create the comment
+                        body: "Hello, this is my comment!",
+                        customtype: nil,    // [OPTIONAL]
+                        customfield1: nil,    // [OPTIONAL]
+                        customfield2: nil,    // [OPTIONAL]
+                        custompayload: "{ num: 0 }"    // [OPTIONAL]
                     )
                 )
                 // Resolve `commentReply` from HERE onwards(ex. update UI displaying the response data)...
@@ -672,23 +642,19 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let commentReplies = try await asyncFunction(
-                    for: commentClient.listRepliesAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123", // ID of the parent comment
-                        cursor: nil, // OPTIONAL
-                        limit: KotlinInt(int: 20), // OPTIONAL
-                        direction: DirectionType.Forward, // OPTIONAL, defaults to "forward", Must be "forward" or "backward"
-                        sort: SortType.Oldest, // OPTIONAL, defaults to "oldest", Either "oldest", "newest", "likes", "votescore", "mostreplies"
-                        includechildren: true, // (optional, default is false) If false, this returns all reply nodes that are immediate children of the provided parent id. If true, it includes all replies under the parent id and all the children of those replies and so on.
-                        includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
-                    )
+                let commentReplies = try await commentClient.listReplies(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123", // ID of the parent comment
+                    cursor: nil, // OPTIONAL
+                    limit: KotlinInt(int: 20), // OPTIONAL
+                    direction: DirectionType.Forward, // OPTIONAL, defaults to "forward", Must be "forward" or "backward"
+                    sort: SortType.Oldest, // OPTIONAL, defaults to "oldest", Either "oldest", "newest", "likes", "votescore", "mostreplies"
+                    includechildren: true, // (optional, default is false) If false, this returns all reply nodes that are immediate children of the provided parent id. If true, it includes all replies under the parent id and all the children of those replies and so on.
+                    includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
                 )
                 // Resolve `commentReplies` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -738,16 +704,12 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let comment = try await asyncFunction(
-                    for: commentClient.getCommentAsync(
-                        commentid: "test-comment-id123",
-                    )
+                let comment = try await commentClient.getComment(
+                    commentid: "test-comment-id123",
                 )
                 // Resolve `comment` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -809,22 +771,18 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let comments = try await asyncFunction(
-                    for: commentClient.listCommentsAsync(
-                        conversationid: "test-conversation-id123",
-                        cursor: null, // OPTIONAL
-                        limit: KotlinInt(int: 20), // OPTIONAL
-                        direction: DirectionType.Forward, // OPTIONAL, defaults to "forward", Must be "forward" or "backward"
-                        sort: SortType.Oldest, // OPTIONAL, defaults to "oldest", Either "oldest", "newest", "likes", "votescore", "mostreplies"
-                        includechildren: true, // (optional, default is false) If false, this returns all reply nodes that are immediate children of the provided parent id. If true, it includes all replies under the parent id and all the children of those replies and so on.
-                        includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
-                    )
+                let comments = try await commentClient.listComments(
+                    conversationid: "test-conversation-id123",
+                    cursor: null, // OPTIONAL
+                    limit: KotlinInt(int: 20), // OPTIONAL
+                    direction: DirectionType.Forward, // OPTIONAL, defaults to "forward", Must be "forward" or "backward"
+                    sort: SortType.Oldest, // OPTIONAL, defaults to "oldest", Either "oldest", "newest", "likes", "votescore", "mostreplies"
+                    includechildren: true, // (optional, default is false) If false, this returns all reply nodes that are immediate children of the provided parent id. If true, it includes all replies under the parent id and all the children of those replies and so on.
+                    includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
                 )
                 // Resolve `comments` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -882,20 +840,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let batchCommentReplies = try await asyncFunction(
-                    for: commentClient.listRepliesBatchAsync(
-                        conversationid: "test-conversation-id123",
-                        cursor = null, // OPTIONAL
-                        childlimit: KotlinInt(int: 50),    // (Optional, default = 50).
-                        parentids: ["test-comment-id123", "test-comment-id456"], //  (Required). A list of parent comment ID(s) to which comment replies will be fetched from.
-                        includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
-                    )
+                let batchCommentReplies = try await commentClient.listRepliesBatch(
+                    conversationid: "test-conversation-id123",
+                    cursor = null, // OPTIONAL
+                    childlimit: KotlinInt(int: 50),    // (Optional, default = 50).
+                    parentids: ["test-comment-id123", "test-comment-id456"], //  (Required). A list of parent comment ID(s) to which comment replies will be fetched from.
+                    includeinactive: true // (optional, default is false) If true, return comments that are inactive (for example, disabled by moderation)
                 )
                 // Resolve `batchCommentReplies` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -957,21 +911,17 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reactedComment = try await asyncFunction(
-                    for: commentClient.reactToCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                        request: ReactToCommentRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to react on the comment
-                            reaction: ReactionType.LIKE,   // Any arbitratry reaction string constant(i.e. "like", etc.)
-                            reacted: true
-                        )
+                let reactedComment = try await commentClient.reactToComment(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
+                    request: ReactToCommentRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to react on the comment
+                        reaction: ReactionType.LIKE,   // Any arbitratry reaction string constant(i.e. "like", etc.)
+                        reacted: true
                     )
                 )
                 // Resolve `reactedComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -1032,20 +982,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let votedComment = try await asyncFunction(
-                    for: commentClient.voteOnCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                        request: VoteOnCommentRequest(
-                            vote: VoteType.Up,
-                            userid: "test-user-id123" // ID of the User who is attempting to vote on the comment
-                        )
+                let votedComment = try await commentClient.voteOnComment(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
+                    request: VoteOnCommentRequest(
+                        vote: VoteType.Up,
+                        userid: "test-user-id123" // ID of the User who is attempting to vote on the comment
                     )
                 )
                 // Resolve `votedComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -1106,20 +1052,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let reportedComment = try await asyncFunction(
-                    for: commentClient.reportCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                        request: ReportCommentRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to report the comment
-                            reporttype: ReportType.ABUSE
-                        )
+                let reportedComment = try await commentClient.reportComment(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
+                    request: ReportCommentRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to report the comment
+                        reporttype: ReportType.ABUSE
                     )
                 )
                 // Resolve `reportedComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -1180,20 +1122,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let updatedComment = try await asyncFunction(
-                    for: commentClient.updateCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                        request: UpdateCommentRequest(
-                            userid: "test-user-id123", // ID of the User who is attempting to update the comment
-                            body: "Hello UPDATED comment!"
-                        )
+                let updatedComment = try await commentClient.updateComment(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
+                    request: UpdateCommentRequest(
+                        userid: "test-user-id123", // ID of the User who is attempting to update the comment
+                        body: "Hello UPDATED comment!"
                     )
                 )
                 // Resolve `updatedComment` from HERE onwards(ex. update UI displaying the response data)...
@@ -1252,20 +1190,16 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let logicallyDeletedComment = try await asyncFunction(
-                    for: commentClient.flagCommentLogicallyDeletedAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                        userid: "test-user-id123", // ID of the User who is attempting to logically delete the comment
-                        deleted: true,
-                        permanentifnoreplies: false   // If not provided, defaults to false.
-                    )
+                let logicallyDeletedComment = try await commentClient.flagCommentLogicallyDeleted(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
+                    userid: "test-user-id123", // ID of the User who is attempting to logically delete the comment
+                    deleted: true,
+                    permanentifnoreplies: false   // If not provided, defaults to false.
                 )
                 // Resolve `logicallyDeletedComment` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1317,17 +1251,13 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let deletedComment = try await asyncFunction(
-                    for: commentClient.permanentlyDeleteCommentAsync(
-                        conversationid: "test-conversation-id123",
-                        commentid: "test-comment-id123"
-                    )
+                let deletedComment = try await commentClient.permanentlyDeleteComment(
+                    conversationid: "test-conversation-id123",
+                    commentid: "test-comment-id123"
                 )
                 // Resolve `deletedComment` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1387,21 +1317,17 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let commentsInModerationQueue = try await asyncFunction(
-                    for: commentClient.listCommentsInModerationQueueAsync(
-                        conversationid: "test-conversation-id123",  // OPTIONAL, limit to comments under specified conversation ID
-                        limit: KotlinInt(int: 20), // OPTIONAL
-                        cursor: nil, // OPTIONAL
-                        filterHandle: "@nicolas", // OPTIONAL
-                        filterKeyword: nil, // OPTIONAL
-                        filterModerationState: CommentFilterModerationState.Approved // OPTIONAL
-                    )
+                let commentsInModerationQueue = try await commentClient.listCommentsInModerationQueue(
+                    conversationid: "test-conversation-id123",  // OPTIONAL, limit to comments under specified conversation ID
+                    limit: KotlinInt(int: 20), // OPTIONAL
+                    cursor: nil, // OPTIONAL
+                    filterHandle: "@nicolas", // OPTIONAL
+                    filterKeyword: nil, // OPTIONAL
+                    filterModerationState: CommentFilterModerationState.Approved // OPTIONAL
                 )
                 // Resolve `commentsInModerationQueue` from HERE onwards(ex. update UI displaying the response data)...
             } catch {
@@ -1457,18 +1383,14 @@ Below is a code sample on how to use this SDK feature:
         }
         
         //
-        // If using KMPNativeCoroutines framework
+        // If using Async/Await
         //
-        import KMPNativeCoroutinesAsync
-        
         let handle = Task {
             do {
-                let approvedComment = try await asyncFunction(
-                    for: commentClient.approveMessageInQueueAsync(
-                        commentid: "test-comment-id123",
-                        request: ApproveMessageRequest(
-                            approve: true  // Set true to APPROVE. Otherwise, false to REJECT.
-                        )
+                let approvedComment = try await commentClient.approveMessageInQueue(
+                    commentid: "test-comment-id123",
+                    request: ApproveMessageRequest(
+                        approve: true  // Set true to APPROVE. Otherwise, false to REJECT.
                     )
                 )
                 // Resolve `approvedComment` from HERE onwards(ex. update UI displaying the response data)...

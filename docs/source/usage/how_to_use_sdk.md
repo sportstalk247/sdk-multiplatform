@@ -47,7 +47,7 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
         let endpoint = "http://api.custom.endpoint/v1/" // please ensure out of the box the SDKs are configured for production URL
         
         // Instantiate User Client
-        let userClient = SportsTalk247.UserClient(
+        let userClient = SportsTalk247.shared.UserClient(
             config: ClientConfig(
                 appId: appId,
                 apiToken: apiToken,
@@ -56,7 +56,7 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
         )
     
         // Instantiate Chat Client
-        let chatClient = SportsTalk247.ChatClient(
+        let chatClient = SportsTalk247.shared.ChatClient(
             config: ClientConfig(
                 appId: appId,
                 apiToken: apiToken,
@@ -122,11 +122,9 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
             // ...
 
             // Instantiate User Client
-            let userClient = SportsTalk247.UserClient(/*...*/)
-
-            // Instantiate Chat Client
-            let chatClient = SportsTalk247.ChatClient(/*...*/)
+            let userClient = SportsTalk247.shared.UserClient(/*...*/)
             
+            // Callback approach
             userClient.createOrUpdateUser(
                 request: CreateUpdateUserRequest(
                             userid: "023976080242ac120002",
@@ -138,43 +136,30 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
             ) { createdUser, error in
                 // Resolve `createdUser` (ex. Display prompt OR Update UI)            
             }
-        
-        Developer may also use KMPNativeCoroutines framework to treat SDK functions as Async functions. See the example below:
-
-        .. code-block:: swift
             
-            import KMPNativeCoroutinesAsync
-            
-            // ...
-            // ...
-
-            // Instantiate User Client
-            let userClient = SportsTalk247.UserClient(/*...*/)
-
-            // Instantiate Chat Client
-            let chatClient = SportsTalk247.ChatClient(/*...*/)
+            //
+            // Developer may also use Swift Async/Await
+            //
             
             let handle = Task {
-            do {
-                let createdUser = try await asyncFunction(
-                    for: userClient.createOrUpdateUserAsync(
-                            request: CreateUpdateUserRequest(
-                                        userid: "023976080242ac120002",
-                                        handle: "sample_handle_123",
-                                        displayname: "Test Name 123", // OPTIONAL
-                                        pictureurl: "<Image URL>", // OPTIONAL
-                                        profileurl: "<Image URL>" // OPTIONAL
-                            )
+                do {
+                    let createdUser = try await userClient.createOrUpdateUserAsync(
+                        request: CreateUpdateUserRequest(
+                            userid: "023976080242ac120002",
+                            handle: "sample_handle_123",
+                            displayname: "Test Name 123", // OPTIONAL
+                            pictureurl: "<Image URL>", // OPTIONAL
+                            profileurl: "<Image URL>" // OPTIONAL
                         )
-                )
-                // Resolve `createdUser` from HERE onwards(ex. update UI displaying the response data)...
-            } catch {
-                // ...
+                    )
+                    // Resolve `createdUser` from HERE onwards(ex. update UI displaying the response data)...
+                } catch {
+                    // ...
+                }
             }
-        }
-        
-        // To cancel the suspend function just cancel the async task
-        handle.cancel()
+            
+            // To cancel the suspend function just cancel the async task
+            handle.cancel()
 
 ```
 
@@ -271,8 +256,6 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
         
         .. code-block:: swift
             
-            import KMPNativeCoroutinesAsync
-            
             // ...
             // ...
             
@@ -288,24 +271,40 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
                 endpoint: endpoint
             )
             
+            //
             // Prepare JWTProvider
+            //
+            
+            // Create a class implementing KotlinSuspendFunction1 protocol
+            class OnJWTRefreshTokenFunction: KotlinSuspendFunction1 {
+                func invoke(p1: Any?, completionHandler: @escaping (Any?, Error?) -> Void) {
+                    guard let oldToken = p1 as? String else {
+                        return
+                    }
+                    
+                    // ...
+                    // ...
+                    let newToken: String? = "..."// Long-running operation ~ Fetch New JWT Token
+                    let error: Error? = nil
+                    completionHandler(newToken, error)
+                }
+                
+            }
+            let refreshTokenFunction = OnJWTRefreshTokenFunction()
             let myJwtProvider = JWTProvider(
                 token: "...",  // Developer may immediately provide a token on init
-                tokenRefreshAction: /*async*/ { 
-                    let newToken = await doPerformFetchNewToken() // Developer may perform a long-running operation to generate a new JWT
-                    return newToken
-                }
+                tokenRefreshAction: refreshTokenFunction
             )
             
             // Set custom JWTProvider
-            SportsTalk247.setJWTProvider(
+            SportsTalk247.shared.setJWTProvider(
                 config: config,
                 provider: myJwtProvider
             )
             
             // ...
             // Instantiate Chat Client
-            let chatClient = SportsTalk247.ChatClient(
+            let chatClient = SportsTalk247.shared.ChatClient(
                 config: ClientConfig(
                     appId: appId,
                     apiToken: apiToken,
@@ -328,14 +327,12 @@ This Sportstalk SDK is meant to power custom chat applications. Sportstalk does 
             let handle = Task {
             do { 
                 
-                let joinRoomResponse = try await asyncFunction(
-                    for: chatClient.joinRoom(
+                let joinRoomResponse = try await chatClient.joinRoom(
                         chatRoomId = "080001297623242ac002",    // ID of an existing chat room
                         request = JoinChatRoomRequest(
                             userid = "023976080242ac120002" // ID of an existing user from this chatroom
                         )
                     )
-                )
             } catch {
                 //
                 // Handle Unauthorized Error
