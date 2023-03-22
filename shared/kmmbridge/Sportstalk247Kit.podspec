@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'Sportstalk247Kit'
-    spec.version                  = '2.0.0-beta01'
+    spec.version                  = '2.0.0-beta02'
     spec.homepage                 = 'https://gitlab.com/sportstalk247/sdk-kmm'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
