@@ -22,23 +22,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    // Avoid duplicate publications(https://kotlinlang.org/docs/multiplatform-publish-lib.html#avoid-duplicate-publications)
-    val publicationsFromMainHost =
-        listOf(
-            android(),
-            // Later add other targets
-        ).map { it.name } + "-kmm"
-    publishing {
-        publications {
-            matching { it.name in publicationsFromMainHost }.all {
-                val targetPublication = this@all
-                tasks.withType<AbstractPublishToMaven>()
-                    .matching { it.publication == targetPublication }
-                    .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
-            }
-        }
-    }
-
     sourceSets {
         all {
             languageSettings.apply {
@@ -116,6 +99,45 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-//        targetSdk = libs.versions.targetSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 }
+
+group = rootProject.extra["packageGroup"].toString()
+version = rootProject.extra["packageVersion"].toString()
+//
+//// Avoid duplicate publications(https://kotlinlang.org/docs/multiplatform-publish-lib.html#avoid-duplicate-publications)
+//val publicationsFromMainHost =
+//    listOf(
+//        android(),
+//        // Later add other targets
+//    ).map { it.name } + "-kmm"
+//publishing {
+//    publications {
+//        matching { it.name in publicationsFromMainHost }.all {
+//            val targetPublication = this@all
+//            tasks.withType<AbstractPublishToMaven>()
+//                .matching { it.publication == targetPublication }
+//                .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
+//        }
+//    }
+//}
+//
+//publishing {
+//    repositories {
+//        maven {
+//            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
+//            url = uri("https://com.sportstalk.sdk/api/v4/projects/43716798/packages/maven")
+//            name = "GitLab"
+//            credentials(HttpHeaderCredentials::class) {
+//                name = "KMM Publish"//"GitlabPackageRegistryToken"
+//                value =
+//                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
+//            }
+//            authentication {
+//                create("header", HttpHeaderAuthentication::class)
+//            }
+//        }
+//
+//    }
+//}

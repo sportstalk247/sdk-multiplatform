@@ -1,3 +1,7 @@
+val packageGroup by extra { "com.sportstalk247.sdk-kmm" }
+val packageVersion by extra { "2.0.0-beta01" }
+val nativeFrameworkName by extra { "Sportstalk247Kit" }
+
 // https://youtrack.jetbrains.com/issue/KTIJ-19369
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {

@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -34,13 +33,13 @@ kotlin {
     }
 
     cocoapods {
-        name = "Sportstalk247Kit"
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "2.0.0-beta01"
+        name = rootProject.extra["nativeFrameworkName"].toString()
+        summary = "Sportstalk247 SDK - KMM"
+        homepage = "https://gitlab.com/sportstalk247/sdk-kmm"
+        version = rootProject.extra["packageVersion"].toString()
         ios.deploymentTarget = "15.4"
         framework {
-            baseName = "Sportstalk247Kit"
+            baseName = rootProject.extra["nativeFrameworkName"].toString()
             isStatic = false
 
             export(project(":shared:core"))
@@ -105,7 +104,7 @@ android {
 //
 kmmbridge {
     // TODO:: Comment out for now... For the meantime, do local dev workflow.
-    // mavenPublishArtifacts()
+//     mavenPublishArtifacts()
 
     // Preferred Publish Versioning
     /*githubReleaseVersions()*/
@@ -118,20 +117,23 @@ kmmbridge {
     //etc
 }
 
-publishing {
-    repositories {
-        maven {
-            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
-            // url = uri("https://gitlab.example.com/api/v4/projects/<PROJECT_ID>/packages/maven")
-            credentials(HttpHeaderCredentials::class) {
-                name = "GitlabPackageRegistryToken"
-                value =
-                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
-            }
-            authentication {
-                create("header", HttpHeaderAuthentication::class)
-            }
-        }
-
-    }
-}
+group = rootProject.extra["packageGroup"].toString()
+version = rootProject.extra["packageVersion"].toString()
+//publishing {
+//    repositories {
+//        maven {
+//            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
+//            url = uri("https://com.sportstalk.sdk/api/v4/projects/43716798/packages/maven")
+//            name = "GitLab"
+//            credentials(HttpHeaderCredentials::class) {
+//                name = "KMM Publish"//"GitlabPackageRegistryToken"
+//                value =
+//                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
+//            }
+//            authentication {
+//                create("header", HttpHeaderAuthentication::class)
+//            }
+//        }
+//
+//    }
+//}

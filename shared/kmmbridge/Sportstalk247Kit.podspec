@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'Sportstalk247Kit'
     spec.version                  = '2.0.0-beta01'
-    spec.homepage                 = 'Link to the Shared Module homepage'
+    spec.homepage                 = 'https://gitlab.com/sportstalk247/sdk-kmm'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Some description for the Shared Module'
+    spec.summary                  = 'Sportstalk247 SDK - KMM'
     spec.vendored_frameworks      = 'build/cocoapods/framework/Sportstalk247Kit.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '15.4'
