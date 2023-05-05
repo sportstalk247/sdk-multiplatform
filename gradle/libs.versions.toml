@@ -4,13 +4,13 @@ minSdk = "21"
 targetSdk = "33"
 compileSdk = "33"
 
-kotlin = "1.8.10"    #"1.7.21"
+kotlin = "1.8.21"   #"1.8.10"    #"1.7.21"
 gradlePluginAndroid = "7.4.1"#"7.4.0-rc03"
 
 # Dependencies
-coroutines = "1.6.4"
-ktor = "2.2.3"
-kotlinxSerializationVersion = "1.5.0-RC"#"1.4.0"
+coroutines = "1.7.0-RC"   #"1.6.4"
+ktor = "2.3.0" #"2.2.3"
+kotlinxSerializationVersion = "1.5.0"#"1.4.0"
 kotlinxDatetime = "0.4.0"
 
 junit = "4.13.2"
@@ -20,11 +20,11 @@ androidxEspresso = "3.4.0"
 androidxTestRunner = "1.4.0"
 androidxTestRules = "1.4.0"
 
-turbine = "0.12.1"#"0.10.0"
+turbine = "0.12.3"  #"0.12.1"#"0.10.0"
 
-kmpNativeCoroutines = "1.0.0-ALPHA-5"
-googleKsp = "1.8.10-1.0.9"#""1.8.0-1.0.8"#"1.8.0-1.0.9"
-kmmBridge = "0.3.5"
+kmpNativeCoroutines = "1.0.0-ALPHA-8"  #"1.0.0-ALPHA-5"
+googleKsp = "1.8.21-1.0.11"  #"1.8.10-1.0.9"
+kmmBridge = "0.3.7"    #"0.3.5"
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

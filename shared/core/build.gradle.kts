@@ -91,7 +91,7 @@ kotlin {
 //
 nativeCoroutines {
     suffix = "Async"
-    fileSuffix = ""
+//    fileSuffix = ""
 }
 
 android {
