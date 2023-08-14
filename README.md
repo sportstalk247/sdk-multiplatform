@@ -1,4 +1,4 @@
-# Sportstalk247 SDK - KMM
+# Sportstalk247 SDK Multiplatform
 
 First, you need to register SportsTalk API with 'Appkey' and 'Token'.
 You need to visit the dashboard with the following URL:
