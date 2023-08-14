@@ -17,8 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 rootProject.name = "Sportstalk247_Kotlin_Multiplatform"
 include(":shared:model")
 include(":shared:core")

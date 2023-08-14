@@ -9,7 +9,7 @@ Use this API to create experiences powered by SportsTalk and interact with those
 
 You can download the latest SportsTalk SDK(Kotlin Multiplatform) from the following location:
 
-<https://gitlab.com/sportstalk247/sdk-kmm>
+<https://github.com/sportstalk247/sdk-multiplatform>
 
 You need to register SportsTalk API with 'Appkey' and 'Token'.
 

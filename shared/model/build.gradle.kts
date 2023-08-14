@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -5,22 +7,32 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     id("kotlin-parcelize")
     id("maven-publish")
+    signing
 }
 
 kotlin {
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"/*"1.8"*/
             }
         }
 
         // Publish an Android library(https://kotlinlang.org/docs/multiplatform-publish-lib.html#publish-an-android-library)
         publishLibraryVariants("release", "debug")
     }
+    jvmToolchain(17)
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            apiVersion = "1.9"/*"1.4"*/
+            languageVersion = "1.9"/*"1.4"*/
+        }
+    }
 
     sourceSets {
         all {
@@ -77,42 +89,3 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
     }
 }
-
-group = rootProject.extra["packageGroup"].toString()
-version = rootProject.extra["packageVersion"].toString()
-//
-//// Avoid duplicate publications(https://kotlinlang.org/docs/multiplatform-publish-lib.html#avoid-duplicate-publications)
-//val publicationsFromMainHost =
-//    listOf(
-//        android(),
-//        // Later add other targets
-//    ).map { it.name } + "-kmm"
-//publishing {
-//    publications {
-//        matching { it.name in publicationsFromMainHost }.all {
-//            val targetPublication = this@all
-//            tasks.withType<AbstractPublishToMaven>()
-//                .matching { it.publication == targetPublication }
-//                .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
-//        }
-//    }
-//}
-//
-//publishing {
-//    repositories {
-//        maven {
-//            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
-//            url = uri("https://com.sportstalk.sdk/api/v4/projects/43716798/packages/maven")
-//            name = "GitLab"
-//            credentials(HttpHeaderCredentials::class) {
-//                name = "KMM Publish"//"GitlabPackageRegistryToken"
-//                value =
-//                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
-//            }
-//            authentication {
-//                create("header", HttpHeaderAuthentication::class)
-//            }
-//        }
-//
-//    }
-//}

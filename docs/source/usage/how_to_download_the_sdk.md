@@ -7,7 +7,7 @@ In order to use it in your application, just do the following:
 
 ``` tabs::
 
-    .. code-tab:: groovy Android
+    .. code-tab:: groovy Android(Groovy)
         
         // 1. Add the following in root  **build.gradle** file, repositories section
         allprojects {
@@ -20,7 +20,20 @@ In order to use it in your application, just do the following:
         }
         
         // 2. Add the following lines in your module **build.gradle** file, under dependencies section
-        implementation 'com.gitlab.sportstalk247.sdk-kmm:core:vX.Y.Z'
+        implementation 'com.github.sportstalk247.sdk-kmm:core:X.Y.Z'
+
+    .. code-tab:: kotlin Android(Kotlin DSL)
+        
+        // 1. Add the following in root  **build.gradle.kts** file, repositories section
+        dependencyResolutionManagement {
+            repositories {
+                google()
+                mavenCentral()
+            }
+        }
+        
+        // 2. Add the following lines in your module **build.gradle** file, under dependencies section
+        implementation("com.github.sportstalk247.sdk-kmm:core:X.Y.Z")
 
     .. code-tab:: ruby iOS(Cocoapods)
 
@@ -36,7 +49,7 @@ In order to use it in your application, just do the following:
         
         // Under package.swift
         dependencies: [
-            .package(url: "https://gitlab.com:sportstalk247/sdk-kmm.git", from: "<version>")
+            .package(url: "https://github.com:sportstalk247/sdk-kmm.git", from: "<version>")
         ]
         
         // A library to use Kotlin Coroutines and Flow on Swift code in KMP apps.
@@ -46,6 +59,6 @@ In order to use it in your application, just do the following:
         ]
 ```
 
-[![Release](https://jitpack.io/v/com.gitlab.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.gitlab.sportstalk247/sdk-kmm)
+[![Release](https://jitpack.io/v/com.github.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.github.sportstalk247/sdk-kmm)
 
 Then sync again. The gradle build should now be successful.

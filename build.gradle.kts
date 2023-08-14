@@ -1,5 +1,8 @@
-val packageGroup by extra { "com.gitlab.sportstalk247.sdk-kmm" }
-val packageVersion by extra { "2.0.0-beta02" }
+import java.io.FileInputStream
+import java.util.Properties
+
+val packageGroup by extra { "com.github.sportstalk247.sdk-multiplatform" }
+val packageVersion by extra { "2.0.0-beta03" }
 val nativeFrameworkName by extra { "Sportstalk247Kit" }
 
 // https://youtrack.jetbrains.com/issue/KTIJ-19369
@@ -13,8 +16,99 @@ plugins {
     alias(libs.plugins.googleKsp) apply false
     alias(libs.plugins.kmpNativeCoroutines) apply false
     alias(libs.plugins.kmmBridge) apply false
+
+    alias(libs.plugins.gradleNexusPublish)
+    id("maven-publish")
+    signing
 }
 
-tasks.register("clean", Delete::class) {
+/*tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
+}*/
+
+/**
+ * Based on https://github.com/russhwolf/multiplatform-settings/build.gradle.kts
+ */
+val localProperties = Properties()
+if(rootProject.file("local.properties").exists()) {
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
+}
+allprojects {
+    group = rootProject.extra["packageGroup"].toString()
+    version = rootProject.extra["packageVersion"].toString()
+
+    val emptyJavadocJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("javadoc")
+    }
+
+    afterEvaluate {
+        extensions.findByType<PublishingExtension>()?.apply {
+
+            publications.withType<MavenPublication>().configureEach {
+                artifact(emptyJavadocJar.get())
+
+                pom {
+                    name.set("Sportstalk247 SDK Multiplatform")
+                    description.set("A Kotlin Multiplatform library powered by SportsTalk.")
+                    url.set("https://github.com/sportstalk247/sdk-multiplatform")
+                    licenses {
+                        license {
+                            name.set("The Apache Software License, Version 2.0")
+                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("dev-lcc")
+                            name.set("Lawrence C. Cendaña")
+                            /*email.set("<<Developer Email>>")*/
+                        }
+                    }
+                    scm {
+                        /*connection.set("<<SCM Connection URL>>")*/
+                        /*developerConnection.set("<<SCM Dev Connection URL>>")*/
+                        url.set("https://github.com/sportstalk247/sdk-multiplatform")
+                    }
+                }
+            }
+        }
+
+        extensions.findByType<SigningExtension>()?.apply {
+            val publishing = extensions.findByType<PublishingExtension>() ?: return@apply
+            val id = localProperties["signing.keyId"]?.toString()
+            val key = localProperties["signing.key"]?.toString()
+            val password = localProperties["signing.password"]?.toString()
+
+            useInMemoryPgpKeys(id, key, password)
+            sign(publishing.publications)
+        }
+
+        val signingTasks = tasks.withType<Sign>()
+        signingTasks.configureEach {
+            onlyIf { isReleaseBuild }
+        }
+
+        // Slack Thread: https://youtrack.jetbrains.com/issue/KT-46466
+        // TODO: remove after https://youtrack.jetbrains.com/issue/KT-46466 is fixed
+        this.tasks.withType(AbstractPublishToMaven::class.java).configureEach {
+            dependsOn(signingTasks)
+        }
+    }
+
+}
+
+val isReleaseBuild: Boolean
+    get() = localProperties.containsKey("signing.keyId")
+
+// Set up Sonatype repository
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+
+            username = localProperties["ossrhUsername"].toString()
+            password = localProperties["ossrhPassword"].toString()
+        }
+    }
 }

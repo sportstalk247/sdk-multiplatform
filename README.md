@@ -15,6 +15,7 @@ In order to use it in your application, do the following:
 
 1. Add the following in root **build.gradle** file
 
+For Groovy:
 ```groovy
 allprojects {
     repositories {
@@ -26,14 +27,30 @@ allprojects {
 
 }
 ```
+For Kotlin DSL:
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
+```
 
 2. Add the following lines in your module **build.gradle** file:
 
+For Groovy:
 ```groovy
-implementation 'com.gitlab.sportstalk247.sdk-kmm:core:vX.Y.Z'
+implementation 'com.github.sportstalk247.sdk-kmm:core:X.Y.Z'
 ```
 
-[![Release](https://jitpack.io/v/com.gitlab.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.gitlab.sportstalk247/sdk-kmm)
+For Kotlin DSL:
+```groovy
+implementation("com.github.sportstalk247.sdk-kmm:core:X.Y.Z")
+```
+
+[![Release](https://jitpack.io/v/com.github.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.github.sportstalk247/sdk-kmm)
 
 Then sync again. The gradle build should now be successful.
 
