@@ -11,7 +11,7 @@ https://dashboard.sportstalk247.com
 
 # Setup Gradle Repository
 
-The SportsTalk SDK has been published into **jitpack.io**.
+The SportsTalk SDK is published on [Maven Central](https://central.sonatype.com/).
 
 In order to use it in your application, do the following:
 
