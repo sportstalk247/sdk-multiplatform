@@ -1,3 +1,5 @@
+![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
+
 # Sportstalk247 SDK Multiplatform
 
 First, you need to register SportsTalk API with 'Appkey' and 'Token'.
@@ -19,41 +21,46 @@ For Groovy:
 ```groovy
 allprojects {
     repositories {
-    // ...
-       maven {
-          url "https://jitpack.io"
-       }
+        // ...
+        mavenCentral()
+        maven {
+            url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        }
+        // ...
     }
-
 }
 ```
 For Kotlin DSL:
 ```kotlin
+// ...
 dependencyResolutionManagement {
     repositories {
+        // ...
         google()
         mavenCentral()
-        maven("https://jitpack.io")
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        // ...
     }
 }
+// ...
 ```
 
 2. Add the following lines in your module **build.gradle** file:
 
 For Groovy:
 ```groovy
-implementation 'com.github.sportstalk247.sdk-kmm:core:X.Y.Z'
+implementation 'io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z'
 ```
 
 For Kotlin DSL:
 ```groovy
-implementation("com.github.sportstalk247.sdk-kmm:core:X.Y.Z")
+implementation("io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z")
 ```
 
-[![Release](https://jitpack.io/v/com.github.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.github.sportstalk247/sdk-kmm)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
 
 Then sync again. The gradle build should now be successful.
 
 # Documentation
 
-Full Android SDK documentation found here: https://sportstalk247-sdk-kmm.readthedocs.io/en/latest/
+Full Android SDK documentation found here: https://sportstalk247-sdk-multiplatfom.readthedocs.io/en/latest/

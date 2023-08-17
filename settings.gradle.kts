@@ -4,7 +4,6 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven("https://jitpack.io")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven("https://plugins.gradle.org/m2/")
     }
@@ -17,7 +16,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Sportstalk247_Kotlin_Multiplatform"
+rootProject.name = "sdk-multiplatform"
 include(":shared:model")
 include(":shared:core")
 include(":shared:kmmbridge")
