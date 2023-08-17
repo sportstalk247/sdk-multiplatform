@@ -63,4 +63,4 @@ Then sync again. The gradle build should now be successful.
 
 # Documentation
 
-Full Android SDK documentation found here: https://sportstalk247-sdk-multiplatfom.readthedocs.io/en/latest/
+Full Android SDK documentation found here: https://sportstalk247-sdk-multiplatform.readthedocs.io/en/latest/
