@@ -6,11 +6,17 @@ plugins {
     kotlin("native.cocoapods")
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kmmBridge)
-    id("maven-publish")
 }
 
 kotlin {
-    android()
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"/*"1.8"*/
+            }
+        }
+    }
+    ios()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -19,23 +25,19 @@ kotlin {
         compilations.get("main").kotlinOptions.freeCompilerArgs += "-Xexport-kdoc"
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-        }
-    }
-
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            apiVersion = "1.4"
-            languageVersion = "1.4"
+            apiVersion = "1.9"/*"1.4"*/
+            languageVersion = "1.9"/*"1.4"*/
+
+            jvmTarget = "17"/*JavaVersion.VERSION_1_8.toString()*/
         }
     }
 
     cocoapods {
         name = rootProject.extra["nativeFrameworkName"].toString()
-        summary = "Sportstalk247 SDK - KMM"
-        homepage = "https://gitlab.com/sportstalk247/sdk-kmm"
+        summary = "Sportstalk247 SDK Multiplatform"
+        homepage = "https://github.com/sportstalk247/sdk-multiplatform"
         version = rootProject.extra["packageVersion"].toString()
         ios.deploymentTarget = "15.4"
         framework {
@@ -53,6 +55,7 @@ kotlin {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlin.experimental.ExperimentalObjCName")
+                optIn("kotlin.experimental.ExperimentalNativeApi")
             }
         }
     }
@@ -72,7 +75,7 @@ kotlin {
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -81,7 +84,7 @@ kotlin {
         val iosX64Test by getting
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
-        val iosTest by creating {
+        val iosTest by getting {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
@@ -95,7 +98,12 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-//        targetSdk = libs.versions.targetSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
@@ -113,27 +121,7 @@ kmmbridge {
     manualVersions()
 
     spm()
-    cocoapods("git@gitlab.com:sportstalk247/sdk-kmm.git")
+    cocoapods("git@github.com:sportstalk247/sdk-multiplatform.git")
     //etc
 }
 
-group = rootProject.extra["packageGroup"].toString()
-version = rootProject.extra["packageVersion"].toString()
-//publishing {
-//    repositories {
-//        maven {
-//            // https://docs.gitlab.com/ee/user/packages/gradle_repository/
-//            url = uri("https://com.sportstalk.sdk/api/v4/projects/43716798/packages/maven")
-//            name = "GitLab"
-//            credentials(HttpHeaderCredentials::class) {
-//                name = "KMM Publish"//"GitlabPackageRegistryToken"
-//                value =
-//                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
-//            }
-//            authentication {
-//                create("header", HttpHeaderAuthentication::class)
-//            }
-//        }
-//
-//    }
-//}

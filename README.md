@@ -1,4 +1,6 @@
-# Sportstalk247 SDK - KMM
+![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
+
+# Sportstalk247 SDK Multiplatform
 
 First, you need to register SportsTalk API with 'Appkey' and 'Token'.
 You need to visit the dashboard with the following URL:
@@ -9,34 +11,56 @@ https://dashboard.sportstalk247.com
 
 # Setup Gradle Repository
 
-The SportsTalk SDK has been published into **jitpack.io**.
+The SportsTalk SDK is published on [Maven Central](https://central.sonatype.com/).
 
 In order to use it in your application, do the following:
 
 1. Add the following in root **build.gradle** file
 
+For Groovy:
 ```groovy
 allprojects {
     repositories {
-    // ...
-       maven {
-          url "https://jitpack.io"
-       }
+        // ...
+        mavenCentral()
+        maven {
+            url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        }
+        // ...
     }
-
 }
+```
+For Kotlin DSL:
+```kotlin
+// ...
+dependencyResolutionManagement {
+    repositories {
+        // ...
+        google()
+        mavenCentral()
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        // ...
+    }
+}
+// ...
 ```
 
 2. Add the following lines in your module **build.gradle** file:
 
+For Groovy:
 ```groovy
-implementation 'com.gitlab.sportstalk247.sdk-kmm:core:vX.Y.Z'
+implementation 'io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z'
 ```
 
-[![Release](https://jitpack.io/v/com.gitlab.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.gitlab.sportstalk247/sdk-kmm)
+For Kotlin DSL:
+```groovy
+implementation("io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z")
+```
+
+![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
 
 Then sync again. The gradle build should now be successful.
 
 # Documentation
 
-Full Android SDK documentation found here: https://sportstalk247-sdk-kmm.readthedocs.io/en/latest/
+Full Android SDK documentation found here: https://sportstalk247-sdk-multiplatform.readthedocs.io/en/latest/

@@ -2,25 +2,43 @@
 
 ## Download from Repository
 
-The SportsTalk SDK has been published into **jitpack.io**.
+The SportsTalk SDK is published on [Maven Central](https://central.sonatype.com/).
 In order to use it in your application, just do the following:
 
 ``` tabs::
 
-    .. code-tab:: groovy Android
+    .. code-tab:: groovy Android(Groovy)
         
         // 1. Add the following in root  **build.gradle** file, repositories section
         allprojects {
             repositories {
                 // ...
+                mavenCentral()
                 maven {
-                    url "https://jitpack.io"
+                    url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
                 }
+                // ...
             }
         }
         
         // 2. Add the following lines in your module **build.gradle** file, under dependencies section
-        implementation 'com.gitlab.sportstalk247.sdk-kmm:core:vX.Y.Z'
+        implementation 'io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z'
+
+    .. code-tab:: kotlin Android(Kotlin DSL)
+        
+        // 1. Add the following in root  **build.gradle.kts** file, repositories section
+        dependencyResolutionManagement {
+            repositories {
+                // ...
+                google()
+                mavenCentral()
+                maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                // ...
+            }
+        }
+        
+        // 2. Add the following lines in your module **build.gradle** file, under dependencies section
+        implementation("io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z")
 
     .. code-tab:: ruby iOS(Cocoapods)
 
@@ -36,7 +54,7 @@ In order to use it in your application, just do the following:
         
         // Under package.swift
         dependencies: [
-            .package(url: "https://gitlab.com:sportstalk247/sdk-kmm.git", from: "<version>")
+            .package(url: "https://github.com/sportstalk247/sdk-multiplatform.git", from: "<version>")
         ]
         
         // A library to use Kotlin Coroutines and Flow on Swift code in KMP apps.
@@ -46,6 +64,6 @@ In order to use it in your application, just do the following:
         ]
 ```
 
-[![Release](https://jitpack.io/v/com.gitlab.sportstalk247/sdk-kmm.svg)](https://jitpack.io/#com.gitlab.sportstalk247/sdk-kmm)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
 
 Then sync again. The gradle build should now be successful.
