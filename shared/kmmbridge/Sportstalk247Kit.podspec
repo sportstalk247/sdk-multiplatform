@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'Sportstalk247Kit'
-    spec.version                  = '2.0.0-beta03'
+    spec.version                  = '2.0.0-beta04'
     spec.homepage                 = 'https://github.com/sportstalk247/sdk-multiplatform'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
