@@ -1,4 +1,6 @@
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.sportstalk247.sdk-multiplatform/core?label=Maven%20Central)
+[![Documentation Status](https://readthedocs.org/projects/sportstalk247-sdk-multiplatform/badge/?version=latest)](https://sportstalk247-sdk-multiplatform.readthedocs.io/en/latest/?badge=latest)
+
 
 # Sportstalk247 SDK Multiplatform
 
