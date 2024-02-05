@@ -2,7 +2,7 @@ import java.io.FileInputStream
 import java.util.Properties
 
 val packageGroup by extra { "io.github.sportstalk247.${rootProject.name}" }
-val packageVersion by extra { "2.0.0-beta04" }
+val packageVersion by extra { "2.0.0-beta05" }
 val nativeFrameworkName by extra { "Sportstalk247Kit" }
 
 // https://youtrack.jetbrains.com/issue/KTIJ-19369
