@@ -8,8 +8,23 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Sportstalk247 SDK Multiplatform'
     spec.vendored_frameworks      = 'build/cocoapods/framework/Sportstalk247Kit.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '15.4'
+    spec.ios.deployment_target    = '15.4'
                 
+                
+    if !Dir.exist?('build/cocoapods/framework/Sportstalk247Kit.framework') || Dir.empty?('build/cocoapods/framework/Sportstalk247Kit.framework')
+        raise "
+
+        Kotlin framework 'Sportstalk247Kit' doesn't exist yet, so a proper Xcode project can't be generated.
+        'pod install' should be executed after running ':generateDummyFramework' Gradle task:
+
+            ./gradlew :shared:kmmbridge:generateDummyFramework
+
+        Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
+    end
+                
+    spec.xcconfig = {
+        'ENABLE_USER_SCRIPT_SANDBOXING' => 'NO',
+    }
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':shared:kmmbridge',
