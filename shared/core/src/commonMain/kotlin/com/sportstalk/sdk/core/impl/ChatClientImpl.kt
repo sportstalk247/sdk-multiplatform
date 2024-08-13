@@ -9,6 +9,7 @@ import com.sportstalk.sdk.model.SportsTalkException
 import com.sportstalk.sdk.model.chat.*
 import com.sportstalk.sdk.model.chat.moderation.ApproveMessageRequest
 import com.sportstalk.sdk.model.chat.moderation.ListMessagesNeedingModerationResponse
+import com.sportstalk.sdk.model.chat.moderation.PurgeUserMessagesRequest
 import com.sportstalk.sdk.model.user.User
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -1083,6 +1084,39 @@ internal constructor(
         throw SportsTalkException(
             message = err.message, err = err
         )
+    }
+
+    override suspend fun purgeUserMessages(chatRoomId: String, userId: String, byUserId: String) {
+        try {
+            val response = client.request(
+                "${endpoint}${appId}/chat/rooms/${chatRoomId}/commands/purge"
+            ) {
+                method = HttpMethod.Post
+                setBody(
+                    PurgeUserMessagesRequest(
+                        userid = userId,
+                        byuserid = byUserId,
+                    )
+                )
+            }
+            val result = response.body<ApiResponse<Unit>>()
+            val code = result.code ?: response.status.value
+            if(!HttpStatusCode.fromValue(code).isSuccess()) {
+                val kind = result.kind
+                val message = result.message ?: response.status.description
+                throw SportsTalkException(
+                    kind = kind,
+                    code = code,
+                    message = message,
+                )
+            }
+        } catch (err: SportsTalkException) {
+            throw err
+        } catch (err: Throwable) {
+            throw SportsTalkException(
+                message = err.message, err = err
+            )
+        }
     }
 
     companion object {

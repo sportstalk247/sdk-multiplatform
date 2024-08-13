@@ -1,18 +1,29 @@
 package com.sportstalk.sdk.core
 
-import com.sportstalk.sdk.core.impl.*
-import com.sportstalk.sdk.core.service.*
+import com.sportstalk.sdk.core.impl.ChatClientImpl
+import com.sportstalk.sdk.core.impl.CommentClientImpl
+import com.sportstalk.sdk.core.impl.UserClientImpl
+import com.sportstalk.sdk.core.service.ChatService
+import com.sportstalk.sdk.core.service.CommentService
+import com.sportstalk.sdk.core.service.UserService
 import com.sportstalk.sdk.model.ClientConfig
 import com.sportstalk.sdk.model.SportsTalkException
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.plugins.logging.*
-import io.ktor.client.request.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpCallValidator
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.accept
+import io.ktor.client.request.headers
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlin.collections.set
 
 internal object ServiceFactory {
 
@@ -26,12 +37,13 @@ internal object ServiceFactory {
             }
         }
 
-        private val ktorClientInstances: HashMap<String /* config.apiTOken */, HttpClient> = hashMapOf()
+        private val ktorClientInstances: HashMap<String, HttpClient> =
+            hashMapOf()
 
         fun getKtorClientInstance(
             config: ClientConfig
         ): HttpClient {
-            return if(ktorClientInstances.containsKey(config.apiToken)) {
+            return if (ktorClientInstances.containsKey(config.apiToken)) {
                 ktorClientInstances[config.apiToken]!!
             } else {
                 HttpClient(
@@ -89,7 +101,7 @@ internal object ServiceFactory {
         private val instances: HashMap<ClientConfig, UserService> = hashMapOf()
 
         internal fun get(config: ClientConfig): UserService =
-            if(instances.containsKey(config)) {
+            if (instances.containsKey(config)) {
                 instances[config]!!
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
@@ -108,7 +120,7 @@ internal object ServiceFactory {
         private val instances: HashMap<ClientConfig, ChatService> = hashMapOf()
 
         internal fun get(config: ClientConfig): ChatService =
-            if(instances.containsKey(config)) {
+            if (instances.containsKey(config)) {
                 instances[config]!!
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
@@ -123,54 +135,16 @@ internal object ServiceFactory {
 
     }
 
-    object ChatModeration {
-        private val instances: HashMap<ClientConfig, ChatModerationService> = hashMapOf()
-
-        internal fun get(config: ClientConfig): ChatModerationService =
-            if(instances.containsKey(config)) {
-                instances[config]!!
-            } else {
-                val ktorClient = RestApi.getKtorClientInstance(config)
-                // REST API Implementation
-                ChatModerationRestApiServiceImpl(
-                    config = config,
-                    client = ktorClient,
-                ).also {
-                    instances[config] = it
-                }
-            }
-
-    }
-
     object Comment {
         private val instances: HashMap<ClientConfig, CommentService> = hashMapOf()
 
         internal fun get(config: ClientConfig): CommentService =
-            if(instances.containsKey(config)) {
+            if (instances.containsKey(config)) {
                 instances[config]!!
             } else {
                 val ktorClient = RestApi.getKtorClientInstance(config)
                 // REST API Implementation
                 CommentClientImpl(
-                    config = config,
-                    client = ktorClient,
-                ).also {
-                    instances[config] = it
-                }
-            }
-
-    }
-
-    object CommentModeration {
-        private val instances: HashMap<ClientConfig, CommentModerationService> = hashMapOf()
-
-        internal fun get(config: ClientConfig): CommentModerationService =
-            if(instances.containsKey(config)) {
-                instances[config]!!
-            } else {
-                val ktorClient = RestApi.getKtorClientInstance(config)
-                // REST API Implementation
-                CommentModerationRestApiServiceImpl(
                     config = config,
                     client = ktorClient,
                 ).also {

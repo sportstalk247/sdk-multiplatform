@@ -1,6 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -15,8 +14,10 @@ plugins {
 kotlin {
     androidTarget {
         compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"/*"1.8"*/
+            compileTaskProvider {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_17)
+                }
             }
         }
 
@@ -28,22 +29,6 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            apiVersion = "1.9"/*"1.4"*/
-            languageVersion = "1.9"/*"1.4"*/
-        }
-    }
-
-//    //
-//    // Kotlin/Native: NSURLConnection HTTPS requests fail in iOS tests
-//    // - https://youtrack.jetbrains.com/issue/KT-38317
-//    //
-//    tasks.withType<KotlinNativeSimulatorTest> {
-//        standalone.set(false)
-//        device.set("745F7A79-3E11-45FD-B685-9F02EF894D62")  // Device ID differs from each Mac OS machine
-//    }
 
     sourceSets {
         all {
@@ -157,20 +142,3 @@ tasks.register("runIosTests")  {
         }
     }
 }
-
-//// Avoid duplicate publications(https://kotlinlang.org/docs/multiplatform-publish-lib.html#avoid-duplicate-publications)
-//val publicationsFromMainHost =
-//    listOf(
-//        android(),
-//        // Later add other targets
-//    ).map { it.name } + "-kmm"
-//publishing {
-//    publications {
-//        matching { it.name in publicationsFromMainHost }.all {
-//            val targetPublication = this@all
-//            tasks.withType<AbstractPublishToMaven>()
-//                .matching { it.publication == targetPublication }
-//                .configureEach { onlyIf { findProperty("isMainHost") == "true" } }
-//        }
-//    }
-//}
