@@ -22,13 +22,28 @@ kotlin {
         }
 
         // Publish an Android library(https://kotlinlang.org/docs/multiplatform-publish-lib.html#publish-an-android-library)
-        publishLibraryVariants("release", "debug")
+        publishLibraryVariants("release")
     }
     jvmToolchain(17)
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    /**
+     * Prepare iOS Target
+     */
+    when {
+        // Only build for iOS Simulator, run it like: ./gradlew build -PiosOnlySimulator in the terminal
+        project.hasProperty("iosOnlySimulator") -> listOf(iosSimulatorArm64("ios"))
+        // Only build for iOS Device, run it like: ./gradlew build -PiosOnlyDevice in the terminal
+        project.hasProperty("iosOnlyDevice") -> listOf(iosArm64("ios"))
+        // Build for both iOS Simulator, iOS Devices and Apple Silicon, run it like: ./gradlew build -PiosOnlyDevice
+        // in the terminal or simply hit the Make Module/Project button in Android Studio
+        else -> {
+            listOf(
+                iosArm64(),
+                iosSimulatorArm64()
+            )
+        }
+    }
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         all {
@@ -43,56 +58,35 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":shared:model"))
-
-                implementation(libs.coroutines.core)
-
-                implementation(libs.kotlinx.serialization.json)
-                implementation(libs.kotlinx.dateTime)
-
-                implementation(libs.bundles.ktor.common)
-
-                implementation(kotlin("test"))
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.bundles.ktor.common)
-                implementation(libs.coroutines.test)
-                implementation(libs.kotlin.test)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.okHttp)
-            }
-        }
-        val androidUnitTest by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-            }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okHttp)
         }
 
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
+        commonMain.dependencies {
+            api(project(":shared:model"))
+
+            implementation(libs.coroutines.core)
+
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.dateTime)
+
+            implementation(libs.bundles.ktor.common)
+
+            implementation(kotlin("test"))
+        }
+
+        commonTest.dependencies {
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.coroutines.test)
+            implementation(libs.kotlin.test)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        iosTest.dependencies {
+            // ...
         }
     }
 }
