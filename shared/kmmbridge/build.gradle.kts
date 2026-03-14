@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     kotlin("native.cocoapods")
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kmmBridge)
 }
 
 kotlin {
@@ -101,7 +100,6 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     compileOptions {
@@ -109,22 +107,3 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
-
-//
-// KMM Bridge Plugin Setup
-//
-kmmbridge {
-    // TODO:: Comment out for now... For the meantime, do local dev workflow.
-    // mavenPublishArtifacts()
-
-    // Preferred Publish Versioning
-    /*githubReleaseVersions()*/
-    /*gitTagVersions()*/
-    /*timestampVersions()*/
-    manualVersions()
-
-    spm()
-    cocoapods("git@github.com:sportstalk247/sdk-multiplatform.git")
-    //etc
-}
-

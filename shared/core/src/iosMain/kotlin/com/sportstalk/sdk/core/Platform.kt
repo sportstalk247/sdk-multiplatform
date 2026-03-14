@@ -14,6 +14,3 @@ internal actual fun getHttpClientEngine(config: ClientConfig): HttpClientEngine 
             setTimeoutIntervalForResource(10000.0)
         }
     }
-
-internal actual val IS_DEVELOPMENT_MODE: Boolean
-    get() = Platform.isDebugBinary

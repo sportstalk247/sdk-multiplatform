@@ -1,6 +1,5 @@
 package com.sportstalk.sdk.core.api
 
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +34,6 @@ class JWTProvider(
      * @return  A cold observable that performs refresh token operation, then internally updates and stores
      * the new token.
      */
-    @NativeCoroutines
     fun observe(): Flow<String?> =
         refreshChannel
             .consumeAsFlow()

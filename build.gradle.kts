@@ -10,12 +10,11 @@ val nativeFrameworkName by extra { "Sportstalk247Kit" }
 plugins {
     //trick: for the same plugin versions in all sub-modules
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.androidKotlinMultiplatformLibrary) apply false
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.googleKsp) apply false
-    alias(libs.plugins.kmpNativeCoroutines) apply false
-    alias(libs.plugins.kmmBridge) apply false
 
     alias(libs.plugins.gradleNexusPublish)
     id("maven-publish")

@@ -92,6 +92,7 @@ kotlin {
                 freeCompilerArgs.addAll(
                     "-Xexpect-actual-classes",
                     "-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.sportstalk.sdk.model.CommonParcelize",
+                    "-opt-in=kotlin.time.ExperimentalTime",
                 )
             }
         }
@@ -103,7 +104,6 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     compileOptions {

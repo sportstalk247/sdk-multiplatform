@@ -1,6 +1,5 @@
 package com.sportstalk.sdk.core.api
 
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.sportstalk.sdk.core.service.ChatModerationService
 import com.sportstalk.sdk.core.service.ChatService
 import com.sportstalk.sdk.model.chat.ChatEvent
@@ -17,7 +16,6 @@ interface ChatClient: ChatService, ChatModerationService {
      * To detect new messages using polling, call this function and then process items
      * with a newer timestamp than the most recent one you have already processed.
      */
-    @NativeCoroutines
     fun allEventUpdates(
         chatRoomId: String,
         /*
