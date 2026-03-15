@@ -61,6 +61,7 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlin.experimental.ExperimentalObjCName")
                 optIn("kotlin.experimental.ExperimentalNativeApi")
+                optIn("kotlin.time.ExperimentalTime")
             }
         }
     }
