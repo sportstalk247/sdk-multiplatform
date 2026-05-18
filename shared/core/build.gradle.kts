@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.googleKsp)
-    alias(libs.plugins.kmpNativeCoroutines)
     id("maven-publish")
     signing
 }
@@ -53,6 +52,7 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlin.experimental.ExperimentalNativeApi")
                 optIn("kotlinx.coroutines.FlowPreview")
+                optIn("kotlin.time.ExperimentalTime")
             }
         }
     }
@@ -91,20 +91,11 @@ kotlin {
     }
 }
 
-//
-// KMPNativeCoroutines
-//
-nativeCoroutines {
-    suffix = "Async"
-    fileSuffix = "Native"
-}
-
 android {
     namespace = "com.sportstalk.sdk.core"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     compileOptions {
@@ -127,12 +118,8 @@ tasks.register("runIosTests")  {
 
     doLast {
         val  binary = (kotlin.targets["iosArm64"] as KotlinNativeTarget).binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine = listOf(
-                "xcrun simctl boot \"$device\"",
-                "xcrun simctl spawn \"$device\" ${binary.absolutePath}",
-                "xcrun simctl shutdown \"$device\"",
-            )
-        }
+        ProcessBuilder("xcrun", "simctl", "boot", device).start().waitFor()
+        ProcessBuilder("xcrun", "simctl", "spawn", device, binary.absolutePath).start().waitFor()
+        ProcessBuilder("xcrun", "simctl", "shutdown", device).start().waitFor()
     }
 }

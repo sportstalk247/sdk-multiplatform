@@ -20,7 +20,7 @@ import com.sportstalk.sdk.model.user.User
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.*
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
