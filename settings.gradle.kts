@@ -4,7 +4,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven("https://oss.sonatype.org/content/repositories/snapshots")
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
         maven("https://plugins.gradle.org/m2/")
     }
 }

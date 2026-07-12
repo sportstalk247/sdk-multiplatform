@@ -6,8 +6,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.googleKsp)
-    id("maven-publish")
-    signing
+    alias(libs.plugins.mavenPublish)
 }
 
 kotlin {

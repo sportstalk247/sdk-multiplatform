@@ -7,8 +7,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
     id("kotlin-parcelize")
-    id("maven-publish")
-    signing
+    alias(libs.plugins.mavenPublish)
 }
 
 kotlin {

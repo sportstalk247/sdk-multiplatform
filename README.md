@@ -26,7 +26,7 @@ allprojects {
         // ...
         mavenCentral()
         maven {
-            url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url "https://central.sonatype.com/repository/maven-snapshots/"
         }
         // ...
     }
@@ -40,7 +40,7 @@ dependencyResolutionManagement {
         // ...
         google()
         mavenCentral()
-        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
         // ...
     }
 }
@@ -63,21 +63,17 @@ implementation("io.github.sportstalk247.sdk-multiplatform:core:X.Y.Z")
 
 Then sync again. The gradle build should now be successful.
 
-# Publish to Maven using Nexus Publishing
+# Publish to Maven Central (Sonatype Central Portal)
 
-Must provide the following config values under `local.properties`:
-```properties
-### KeyId, Password, and Signing Key will be used as params for useInMemoryPgpKeys()
-signing.keyId=
-signing.password=
-signing.key=
-### OSSRH Username and Password are your Sonatype Account Credentials
-ossrhUsername=
-ossrhPassword=
+Publishing uses the [Vanniktech Maven Publish plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/)
+targeting the [Sonatype Central Portal](https://central.sonatype.com/) (the legacy OSSRH / `s01.oss.sonatype.org`
+service was shut down on June 30, 2025).
+
+See **[PUBLISHING.md](PUBLISHING.md)** for the full runbook (namespace access, Portal token, signing keys,
+and the release commands). In short, once `~/.gradle/gradle.properties` holds your Portal token + signing key:
+```bash
+./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
 ```
-To create Sonatype account, proceed to https://central.sonatype.com/.
-Also, you may need to download [GPG Keychain](https://gpgtools.org/) App to allow your workstation to publish an artifact.
-See the Gradle Nexus [publish-plugin](https://github.com/gradle-nexus/publish-plugin) Github Repo for more info.
 
 # Documentation
 
