@@ -15,7 +15,7 @@ In order to use it in your application, just do the following:
                 // ...
                 mavenCentral()
                 maven {
-                    url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                    url "https://central.sonatype.com/repository/maven-snapshots/"
                 }
                 // ...
             }
@@ -32,7 +32,7 @@ In order to use it in your application, just do the following:
                 // ...
                 google()
                 mavenCentral()
-                maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                maven("https://central.sonatype.com/repository/maven-snapshots/")
                 // ...
             }
         }

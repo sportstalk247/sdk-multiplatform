@@ -50,7 +50,6 @@ internal object ServiceFactory {
                     getHttpClientEngine(config)
                 ) {
                     expectSuccess = true
-                    developmentMode = IS_DEVELOPMENT_MODE
 
                     defaultRequest {
                         headers {

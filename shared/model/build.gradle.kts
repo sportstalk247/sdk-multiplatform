@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -6,33 +7,49 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
     id("kotlin-parcelize")
-    id("maven-publish")
-    signing
+    alias(libs.plugins.mavenPublish)
 }
 
 kotlin {
     androidTarget {
         compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"/*"1.8"*/
+            compileTaskProvider {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_17)
+                }
             }
         }
 
         // Publish an Android library(https://kotlinlang.org/docs/multiplatform-publish-lib.html#publish-an-android-library)
-        publishLibraryVariants("release", "debug")
+        publishLibraryVariants("release")
     }
     jvmToolchain(17)
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            apiVersion = "1.9"/*"1.4"*/
-            languageVersion = "1.9"/*"1.4"*/
+    /**
+     * Prepare iOS Target
+     */
+    when {
+        // Only build for iOS Simulator, run it like: ./gradlew build -PiosOnlySimulator in the terminal
+        project.hasProperty("iosOnlySimulator") -> listOf(iosSimulatorArm64("ios"))
+        // Only build for iOS Device, run it like: ./gradlew build -PiosOnlyDevice in the terminal
+        project.hasProperty("iosOnlyDevice") -> listOf(iosArm64("ios"))
+        // Build for both iOS Simulator, iOS Devices and Apple Silicon, run it like: ./gradlew build -PiosOnlyDevice
+        // in the terminal or simply hit the Make Module/Project button in Android Studio
+        else -> {
+            listOf(
+                iosArm64(),
+                iosSimulatorArm64()
+            )
         }
     }
+    applyDefaultHierarchyTemplate()
+
+//    tasks.withType<KotlinCompile>().configureEach {
+//        kotlinOptions {
+//            apiVersion = "1.9"/*"1.4"*/
+//            languageVersion = "1.9"/*"1.4"*/
+//        }
+//    }
 
     sourceSets {
         all {
@@ -44,39 +61,39 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
+        androidMain.dependencies {
+            // ...
+        }
 
-                implementation(libs.kotlinx.serialization.json)
-                implementation(libs.kotlinx.dateTime)
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.dateTime)
 
-                implementation(kotlin("test"))
+            implementation(kotlin("test"))
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+
+        iosMain.dependencies {
+            // ...
+        }
+
+        iosTest.dependencies {
+            // ...
+        }
+    }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.get().compilerOptions {
+                freeCompilerArgs.addAll(
+                    "-Xexpect-actual-classes",
+                    "-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.sportstalk.sdk.model.CommonParcelize",
+                    "-opt-in=kotlin.time.ExperimentalTime",
+                )
             }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-        val androidMain by getting
-        val androidUnitTest by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
@@ -86,7 +103,6 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     compileOptions {
